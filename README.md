@@ -1,2 +1,2 @@
-# ti-glasuvash-mashinno-ionic-vue
-Мобилни приложения Ти гласуваш машинно
+# mobile-ti-glasuvash-mashinno-ionic-vue
+Мобилни приложения за машинно гласуване
