@@ -1,0 +1,7 @@
+{
+  "name": "ti-glasuvash-mashinno",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
