@@ -3,3 +3,12 @@ export const enum HomePageStrings {
     subtitle = "Поставете картата в слота за четене",
     cardButtonTitle = "Поставете карта"
 }
+
+export const enum PartiesPageStrings {
+    electionRegion = "Регйон", 
+    section = "Секция", 
+    title = "НАРОДНИ ПРЕДСТАВИТЕЛИ", 
+    preferenceTitle = "Предпочитание (преференция) за кандидат", 
+    buttonNext = "Следващ", 
+    buttonPreview = "Преглед"
+}

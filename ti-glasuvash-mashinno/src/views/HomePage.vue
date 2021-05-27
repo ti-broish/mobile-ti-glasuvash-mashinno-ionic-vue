@@ -11,12 +11,14 @@
         <div id="cardContainer">
           <div id="box">
             <div id="boxHeader"></div>
-            <div id="box1">
-              <div id="cardButtonContainer">
-                <ion-button id="cardButton" @click="() => router.replace('/parties')">
-                  {{ cardButtonTitle }}
-                </ion-button>
-              </div>
+            <div id="box1"></div>
+            <div id="cardButtonContainer">
+              <ion-button
+                id="cardButton"
+                @click="() => router.replace('/parties')"
+              >
+                {{ cardButtonTitle }}
+              </ion-button>
             </div>
           </div>
         </div>
@@ -26,30 +28,30 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonLabel } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { IonContent, IonPage, IonLabel } from "@ionic/vue";
+import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { HomePageStrings } from '@/utils/LocalizedStrings';
+import { HomePageStrings } from "@/utils/LocalizedStrings";
 
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   components: {
     IonContent,
-    IonPage, 
-    IonLabel
-  }, 
+    IonPage,
+    IonLabel,
+  },
   setup() {
     const router = useRouter();
 
     return { router };
-  }, 
+  },
   data() {
     return {
-      title: HomePageStrings.title, 
-      subtitle: HomePageStrings.subtitle, 
-      cardButtonTitle: HomePageStrings.cardButtonTitle
-    }
-  }
+      title: HomePageStrings.title,
+      subtitle: HomePageStrings.subtitle,
+      cardButtonTitle: HomePageStrings.cardButtonTitle,
+    };
+  },
 });
 </script>
 
@@ -90,13 +92,14 @@ export default defineComponent({
 
 #box {
   margin: auto;
-  padding: 32px;
+  width: 100%;
+  height: 350px;
   border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
 }
 
 #boxHeader {
-  margin: auto;
+  margin: 32px auto;
   width: 25%;
   border: 4px solid var(--tigm-border-color);
   border-radius: 4px;
@@ -104,18 +107,22 @@ export default defineComponent({
 
 #box1 {
   margin-top: 32px;
-  padding: 32px;
-  height: 250px;
+  margin-left: 32px;
+  margin-right: 32px;
+  height: 200px;
   border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
 }
 
 #cardButtonContainer {
+  margin-top: 16px;
+  /*
   position: absolute;
   left: 0;
   right: 0;
   top: 80%;
   transform: translateY(-80%);
+  */
 }
 
 #cardButton {
