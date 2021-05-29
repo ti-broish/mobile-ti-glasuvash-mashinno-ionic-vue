@@ -13,12 +13,18 @@
         <div class="partiesContainer">
           <div class="partiesList">
             <div v-for="party in parties" :key="party.id">
-              <party-component :pParty="party"></party-component>
+              <party-component
+                :pParty="party"
+                :pSelectedParty="selectedParty" 
+                @select-party="didSelectParty($event)"
+              ></party-component>
             </div>
           </div>
           <!-- preferences -->
           <div class="preferencesContainer">
-            <preferences-component :pPreferences="preferences"></preferences-component>
+            <preferences-component
+              :pPreferences="preferences"
+            ></preferences-component>
           </div>
         </div>
       </div>
@@ -50,8 +56,9 @@ export default defineComponent({
       electionRegionText: PartiesPageStrings.electionRegion,
       sectionText: PartiesPageStrings.section,
       title: PartiesPageStrings.title,
-      parties: [] as Array<Party>, 
-      preferences: [] as Array<Preference>
+      parties: [] as Array<Party>,
+      preferences: [] as Array<Preference>,
+      selectedParty: {} as Party
     };
   },
   mounted() {
@@ -65,11 +72,15 @@ export default defineComponent({
       console.log("parties: ", this.parties);
     },
     loadPreferences() {
-      for(let i = 1; i <= 12; i++) {
-        const preference = { id: 100 + i }
+      for (let i = 1; i <= 12; i++) {
+        const preference = { id: 100 + i };
         this.preferences.push(preference);
       }
-    }
+    },
+    didSelectParty(party: Party) {
+      console.log("didSelectParty: ", party);
+      this.selectedParty = party;
+    },
   },
 });
 </script>
