@@ -9,6 +9,7 @@ export const enum PartiesPageStrings {
     section = "Секция", 
     title = "НАРОДНИ ПРЕДСТАВИТЕЛИ", 
     preferenceTitle = "Предпочитание (преференция) за кандидат", 
-    buttonNext = "Следващ", 
+    prevPage = "Предишен", 
+    nextPage = "Следващ", 
     buttonPreview = "Преглед"
 }

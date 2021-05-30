@@ -15,6 +15,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-background-color: #FFFFFF;
   --tigm-text-color: #262629;
   --tigm-border-color: #262629;
+  --tigm-button-activated-color: #464649;
 
   /** primary **/
   --ion-color-primary: #3880ff;

@@ -9,19 +9,29 @@
       @click="didSelectParty()"
       lines="none"
     >
-      <span v-if="party.id < 10">
-        <span class="spanBox" v-bind:class="{ spanBoxSelected: isSelected() }"
-          >0{{ party?.id }}
-          <img class="icon" src="/assets/close.svg"/>
-        </span>
-      </span>
-      <span v-else>
-        <span
-          class="spanBox"
-          v-bind:class="{ spanBoxSelected: isSelected() }"
-          >{{ party?.id }}</span
-        >
-      </span>
+      <div>
+        <div v-if="party.id < 10">
+          <span class="spanBox" v-bind:class="{ spanBoxSelected: isSelected() }"
+            >0{{ party?.id }}
+          </span>
+        </div>
+        <div v-else-if="party.id == 31">
+          <span
+            class="spanBox"
+            v-bind:class="{ spanBoxSelected: isSelected() }"
+          ></span>
+        </div>
+        <div v-else>
+          <span
+            class="spanBox"
+            v-bind:class="{ spanBoxSelected: isSelected() }"
+            >{{ party?.id }}</span
+          >
+        </div>
+        <div id="boxX" v-show="isSelected()">
+          <span id="spanBoxX">x</span>
+        </div>
+      </div>
       <span
         class="spanText"
         v-bind:class="{ spanTextSelected: isSelected() }"
@@ -116,8 +126,16 @@ export default defineComponent({
   border: 2px solid white;
 }
 
-.icon {
+#boxX {
+  width: 40px;
+  height: 40px;
+  text-align: center;
   margin-top: -40px;
+}
+
+#spanBoxX {
+  font-size: 30px;
+  color: white;
 }
 
 .spanText {

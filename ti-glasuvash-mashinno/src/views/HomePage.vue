@@ -128,6 +128,6 @@ export default defineComponent({
 #cardButton {
   font-size: 16px;
   --background: var(--tigm-border-color);
-  --background-activated: #464649;
+  --background-activated: var(--tigm-button-activated-color);
 }
 </style>
