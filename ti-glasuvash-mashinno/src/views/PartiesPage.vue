@@ -40,11 +40,16 @@
           <div class="preferencesContainer">
             <preferences-component
               :pPreferences="preferences"
+              :pSelectedPreference="selectedPreference"
+              @select-preference="didSelectPreference($event)"
+              v-show="selectedParty?.id > 0"
             ></preferences-component>
           </div>
         </div>
         <!-- footer -->
-        <div class="pageFooter"></div>
+        <div class="pageFooter">
+          <ion-button class="previewButton">{{ previewButtonTitle }}</ion-button>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -81,6 +86,7 @@ export default defineComponent({
       parties: [] as Array<Party>,
       preferences: [] as Array<Preference>,
       selectedParty: {} as Party,
+      selectedPreference: {} as Preference|null,
       page: 0,
       hasMorePages: true,
       itemsPerPage: 13,
@@ -103,7 +109,10 @@ export default defineComponent({
       }
     },
     didSelectParty(party: Party) {
-      console.log("didSelectParty: ", party);
+      if (party.id != this.selectedParty.id) {
+        this.selectedPreference = null;
+      }
+
       this.selectedParty = party;
     },
     currentPageParties(): Array<Party> {
@@ -123,6 +132,10 @@ export default defineComponent({
         this.itemsPerPage * (this.page + 1) < this.parties.length;
 
       return result;
+    },
+    didSelectPreference(preference: Preference) {
+      console.log("didSelectPreference: ", preference);
+      this.selectedPreference = preference;
     },
     didPressPrevPage() {
       this.page -= 1;
@@ -176,9 +189,7 @@ export default defineComponent({
 }
 
 .pageButton {
-  position: relative;
-  top: 50%;
-  margin-top: -20px;
+  margin-top: 30px;
   margin-left: 8px;
   --background-activated: var(--tigm-button-activated-color);
   --border-style: solid;
@@ -186,9 +197,15 @@ export default defineComponent({
   --border-color: var(--tigm-text-color);
   --border-radius: 4px;
   --color: var(--tigm-text-color);
-  font-size: 14px;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: none;
+  min-height: 40px;
+  height: 40px;
 }
 
 .nextPageButton {
@@ -199,5 +216,23 @@ export default defineComponent({
 .preferencesContainer {
   width: 40%;
   text-align: center;
+}
+
+.pageFooter {
+  height: 100px;
+}
+
+.previewButton {
+  float: right;
+  margin-top: 30px;
+  margin-right: 8px;
+  --background: var(--tigm-text-color);
+  --color: white;
+  text-transform: none;  
+  font-size: 16px;
+  min-width: 160px;
+  width: 160px;
+  min-height: 40px;
+  height: 40px;
 }
 </style>

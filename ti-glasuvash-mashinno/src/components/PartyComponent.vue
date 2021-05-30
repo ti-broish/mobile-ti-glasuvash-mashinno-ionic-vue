@@ -15,7 +15,7 @@
             >0{{ party?.id }}
           </span>
         </div>
-        <div v-else-if="party.id == 31">
+        <div v-else-if="party.id === 31">
           <span
             class="spanBox"
             v-bind:class="{ spanBoxSelected: isSelected() }"
@@ -67,15 +67,19 @@ export default defineComponent({
     reload() {
       this.selectedParty = null;
 
-      if (this.party?.id == this.pSelectedParty?.id) {
+      if (this.party?.id === this.pSelectedParty?.id) {
         this.selectedParty = this.party;
       }
     },
     isSelected() {
-      return this.party?.id == this.selectedParty?.id;
+      return this.party?.id === this.selectedParty?.id;
     },
     didSelectParty() {
-      this.$emit("select-party", this.party);
+      if (this.party?.id === this.selectedParty?.id) {
+        this.$emit("select-party", null);
+      } else {
+        this.$emit("select-party", this.party);
+      }
     },
   },
   watch: {
@@ -107,7 +111,7 @@ export default defineComponent({
 .spanBox {
   display: inline-block;
   margin-top: 8px;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--tigm-text-color);
   border: 2px solid var(--tigm-text-color);
   border-radius: 4px;
@@ -140,7 +144,7 @@ export default defineComponent({
 
 .spanText {
   padding: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--tigm-text-color);
 }
