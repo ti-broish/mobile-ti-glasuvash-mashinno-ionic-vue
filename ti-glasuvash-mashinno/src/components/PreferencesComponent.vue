@@ -4,7 +4,11 @@
     <ion-grid>
       <ion-row>
         <ion-col v-for="pref in preferences" :key="pref.id">
-          <ion-item class="ionItem" @click="didSelectPreference(pref)">
+          <ion-item
+            class="ionItem"
+            lines="none"
+            @click="didSelectPreference(pref)"
+          >
             <div>
               <span
                 class="spanBox"

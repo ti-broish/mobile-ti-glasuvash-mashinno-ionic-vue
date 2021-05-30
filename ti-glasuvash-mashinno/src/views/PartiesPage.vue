@@ -48,7 +48,9 @@
         </div>
         <!-- footer -->
         <div class="pageFooter">
-          <ion-button class="previewButton">{{ previewButtonTitle }}</ion-button>
+          <ion-button class="previewButton" @click="didPressPreview()">{{
+            previewButtonTitle
+          }}</ion-button>
         </div>
       </div>
     </ion-content>
@@ -58,6 +60,7 @@
 <script lang="ts">
 import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 import { PartiesPageStrings } from "@/utils/LocalizedStrings";
 import { Party, Preference } from "@/store/parties/types";
 import { PartiesBuilder } from "@/store/parties/parties-builder";
@@ -75,6 +78,11 @@ export default defineComponent({
     PartyComponent,
     PreferencesComponent,
   },
+  setup() {
+    const router = useRouter();
+
+    return { router };
+  },
   data() {
     return {
       electionRegionText: PartiesPageStrings.electionRegion,
@@ -86,7 +94,7 @@ export default defineComponent({
       parties: [] as Array<Party>,
       preferences: [] as Array<Preference>,
       selectedParty: {} as Party,
-      selectedPreference: {} as Preference|null,
+      selectedPreference: {} as Preference | null,
       page: 0,
       hasMorePages: true,
       itemsPerPage: 13,
@@ -109,7 +117,7 @@ export default defineComponent({
       }
     },
     didSelectParty(party: Party) {
-      if (party.id != this.selectedParty.id) {
+      if (party == null || party?.id != this.selectedParty?.id) {
         this.selectedPreference = null;
       }
 
@@ -134,7 +142,6 @@ export default defineComponent({
       return result;
     },
     didSelectPreference(preference: Preference) {
-      console.log("didSelectPreference: ", preference);
       this.selectedPreference = preference;
     },
     didPressPrevPage() {
@@ -146,6 +153,13 @@ export default defineComponent({
     },
     didPressNextPage() {
       this.page += 1;
+    },
+    didPressPreview() {
+      if (this.selectedParty?.id > 0) {
+        this.$router.replace("/preview");
+      } else {
+        alert(PartiesPageStrings.noParty);
+      }
     },
   },
 });
@@ -228,7 +242,7 @@ export default defineComponent({
   margin-right: 8px;
   --background: var(--tigm-text-color);
   --color: white;
-  text-transform: none;  
+  text-transform: none;
   font-size: 16px;
   min-width: 160px;
   width: 160px;
