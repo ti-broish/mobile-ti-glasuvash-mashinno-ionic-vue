@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonLabel } from "@ionic/vue";
+import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { HomePageStrings } from "@/utils/LocalizedStrings";
@@ -38,7 +38,8 @@ export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonLabel,
+    IonLabel, 
+    IonButton
   },
   setup() {
     const router = useRouter();

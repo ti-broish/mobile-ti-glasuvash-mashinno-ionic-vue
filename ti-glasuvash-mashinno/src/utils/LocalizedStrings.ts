@@ -21,3 +21,9 @@ export const enum PreviewPageStrings {
     changeButton = "Промени избора", 
     voteButton = "Гласуване"
 }
+
+export const enum VotePageStrings {
+    title = "Благодаря Ви!",
+    subtitle = "Отпечатване на разписката",
+    waiting = "Моля изчакайте ..."
+}

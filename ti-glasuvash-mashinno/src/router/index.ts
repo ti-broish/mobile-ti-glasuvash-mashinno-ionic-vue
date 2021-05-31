@@ -20,7 +20,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/preview',
     name: 'Preview',
     component: () => import('@/views/PreviewPage.vue')
-  }
+  }, 
+  {
+    path: '/vote',
+    name: 'Vote',
+    component: () => import('@/views/VotePage.vue')
+  },
 ]
 
 const router = createRouter({

@@ -42,7 +42,7 @@
               :pPreferences="preferences"
               :pSelectedPreference="selectedPreference"
               @select-preference="didSelectPreference($event)"
-              v-show="selectedParty?.id > 0"
+              v-show="selectedParty?.id > 0 && selectedParty?.id < 31"
             ></preferences-component>
           </div>
         </div>
@@ -64,6 +64,7 @@ import { useRouter } from "vue-router";
 import { PartiesPageStrings } from "@/utils/LocalizedStrings";
 import { Party, Preference } from "@/store/parties/types";
 import { PartiesBuilder } from "@/store/parties/parties-builder";
+import { LocalStorageKeys } from "@/store/local-storage-keys";
 
 import PartyComponent from "@/components/PartyComponent.vue";
 import PreferencesComponent from "@/components/PreferencesComponent.vue";
@@ -156,6 +157,15 @@ export default defineComponent({
     },
     didPressPreview() {
       if (this.selectedParty?.id > 0) {
+        localStorage.setItem(
+          LocalStorageKeys.party,
+          JSON.stringify(this.selectedParty)
+        );
+        localStorage.setItem(
+          LocalStorageKeys.preference,
+          JSON.stringify(this.selectedPreference)
+        );
+
         this.$router.replace("/preview");
       } else {
         alert(PartiesPageStrings.noParty);

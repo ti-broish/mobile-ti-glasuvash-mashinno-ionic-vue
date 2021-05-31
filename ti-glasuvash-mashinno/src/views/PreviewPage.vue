@@ -17,17 +17,37 @@
           </div>
         </div>
         <div class="previewContainer">
-          <ion-label class="previewSection">000000035</ion-label>
+          <div class="previewSectionContainer">
+            <ion-label class="previewSection">000000035</ion-label>
+          </div>
           <div class="previewSeparator"></div>
-          <ion-label class="previewTitle">{{ title }}</ion-label>
+          <div class="previewTitleContainer">
+            <ion-label class="previewTitle">{{ title }}</ion-label>
+          </div>
+          <div class="partyContainer">
+            <div class="boxContainer">
+              <div class="box"></div>
+              <div class="lineContainer" v-show="hasPreference()">
+                <div class="verticalLine"></div>
+              </div>
+            </div>
+            <div class="selectedParty">
+              <ion-label class="selectedPartyLabel">{{ party.name }}</ion-label>
+              <br /><br />
+              <ion-label class="selectedPrefrence" v-show="hasPreference()"
+                >{{ preference?.id }} {{ preference?.name }}
+              </ion-label>
+            </div>
+          </div>
+        </div>
+        <div class="changeButtonContainer">
+          <ion-button class="changeButton" @click="didPressChange()">{{ changeButtonTitle }}</ion-button>
         </div>
         <!-- Page footer -->
         <div class="pageFooter">
-          <ion-button
-            class="voteButton"
-            @click="() => router.replace('/vote')"
-            >{{ voteButtonTitle }}</ion-button
-          >
+          <ion-button class="voteButton" @click="didPressVote()">{{
+            voteButtonTitle
+          }}</ion-button>
         </div>
       </div>
     </ion-content>
@@ -42,11 +62,9 @@ import {
   PartiesPageStrings,
   PreviewPageStrings,
 } from "@/utils/LocalizedStrings";
-// import { Party, Preference } from "@/store/parties/types";
-// import { PartiesBuilder } from "@/store/parties/parties-builder";
 
-// import PartyComponent from "@/components/PartyComponent.vue";
-// import PreferencesComponent from "@/components/PreferencesComponent.vue";
+import { LocalStorageKeys } from "@/store/local-storage-keys";
+import { Party, Preference } from "@/store/parties/types";
 
 export default defineComponent({
   name: "Preview",
@@ -68,21 +86,51 @@ export default defineComponent({
       title: PartiesPageStrings.title,
       infoTitle: PreviewPageStrings.title,
       infoDescription: PreviewPageStrings.description,
+      changeButtonTitle: PreviewPageStrings.changeButton,
       voteButtonTitle: PreviewPageStrings.voteButton,
+      party: {} as Party,
+      preference: {} as Preference,
     };
   },
-  //   mounted() {
+  mounted() {
+    this.loadSelectedValues();
+  },
+  methods: {
+    loadSelectedValues() {
+      const partyJSON = localStorage.getItem(LocalStorageKeys.party);
+      if (partyJSON) {
+        const storedParty: Party = JSON.parse(partyJSON);
+        this.party = storedParty;
+      }
 
-  //   },
-  //   methods: {
-
-  //   }
+      const preferenceJSON = localStorage.getItem(LocalStorageKeys.preference);
+      if (preferenceJSON) {
+        const storedPreference: Preference = JSON.parse(preferenceJSON);
+        this.preference = storedPreference;
+      }
+    },
+    hasPreference() {
+      return this.preference?.id > 0;
+    }, 
+    resetSelectedValues() {
+      localStorage.removeItem(LocalStorageKeys.party);
+      localStorage.removeItem(LocalStorageKeys.preference);
+    },
+    didPressChange() {
+      this.resetSelectedValues();
+      this.$router.replace("/parties");
+    },
+    didPressVote() {
+      this.resetSelectedValues();
+      this.$router.replace("/vote");
+    },
+  },
 });
 </script>
 
 <style scoped>
 .container {
-  margin: 4px;
+  margin: 8px;
 }
 
 .pageHeader {
@@ -120,9 +168,9 @@ export default defineComponent({
 
 .previewContainer {
   margin: 32px auto;
-  width: 50%;
-  height: 200px;
-  border: 1px solid brown;
+  width: 80%;
+  border: 4px solid var(--tigm-text-color);
+  border-radius: 4px;
 }
 
 .previewSection {
@@ -131,13 +179,96 @@ export default defineComponent({
   color: var(--tigm-text-color);
 }
 
+.previewSectionContainer {
+  margin: 8px auto;
+  text-align: center;
+}
+
+.previewSeparator {
+  margin-left: 24px;
+  margin-right: 24px;
+  border: 2px solid var(--tigm-text-color);
+}
+
+.previewTitleContainer {
+  margin-top: 8px;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.previewTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .pageFooter {
   height: 100px;
 }
 
+.partyContainer {
+  display: flex;
+  flex-direction: row;
+  /*border: 1px solid red;*/
+}
+
+.boxContainer {
+  margin-top: 8px;
+  margin-left: 24px;
+  width: 20px;
+  /*border: 1px solid magenta;*/
+}
+
+.box {
+  width: 20px;
+  min-height: 20px;
+  background: var(--tigm-text-color);
+}
+
+.lineContainer {
+  text-align: center;
+}
+
+.verticalLine {
+  margin-left: 9px;
+  margin-bottom: 16px;
+  width: 1px;
+  height: 30px;
+  background: var(--tigm-text-color);
+}
+
+.selectedParty {
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.selectedPartyLabel {
+  font-size: 16px;
+  color: var(--tigm-text-color);
+}
+
+.selectedPreference {
+  font-size: 14px;
+  color: var(--tigm-text-color);
+}
+
+.changeButtonContainer {
+  margin: 8px auto;
+  text-align: center;
+}
+
+.changeButton {
+  width: 60%;
+  text-transform: none;
+  font-size: 16px;
+  --background: var(--tigm-text-color);
+  --color: white;
+}
+
 .voteButton {
   float: right;
-  margin-top: 30px;
+  margin-top: 60px;
   margin-right: 8px;
   --background: var(--tigm-text-color);
   --color: white;
