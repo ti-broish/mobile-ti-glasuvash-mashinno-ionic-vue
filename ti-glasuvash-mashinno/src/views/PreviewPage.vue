@@ -5,33 +5,45 @@
         <page-header-component></page-header-component>
         <!-- Info -->
         <div class="infoContainer">
-          <div class="info">
-            <ion-label class="infoTitle">{{ infoTitle }}</ion-label>
-            <br />
-            <ion-label class="infoDescription">{{ infoDescription }}</ion-label>
-          </div>
+          <ion-label class="infoTitleLabel">{{ infoTitle }}</ion-label>
+          <br />
+          <ion-label class="infoDescriptionLabel">{{
+            infoDescription
+          }}</ion-label>
         </div>
+        <!-- Preview -->
         <div class="previewContainer">
           <div class="previewSectionContainer">
             <ion-label class="previewSection">000000035</ion-label>
           </div>
           <div class="previewSeparator"></div>
-          <div class="previewTitleContainer">
-            <ion-label class="previewTitle">{{ title }}</ion-label>
-          </div>
-          <div class="partyContainer">
-            <div class="boxContainer">
-              <div class="box"></div>
-              <div class="lineContainer" v-show="hasPreference()">
-                <div class="verticalLine"></div>
+          <!-- Vote -->
+          <div class="voteContainer">
+            <div class="box"></div>
+            <div class="partyContainer">
+              <div class="line"></div>
+              <div class="partyLabelContainer">
+                <div v-if="party.id < 10">
+                  <ion-label class="partyLabel"
+                    >0{{ party.id }}. {{ party.name }}</ion-label
+                  >
+                </div>
+                <div v-else-if="party.id === 31">
+                  <ion-label class="partyLabel">{{
+                    party.name
+                  }}</ion-label>
+                </div>
+                <div v-else>
+                  <ion-label class="partyLabel"
+                    >0{{ party.id }}. {{ party.name }}</ion-label
+                  >
+                </div>
+                <div class="preferenceLabelContainer">
+                  <ion-label class="prefrenceLabel" v-show="hasPreference()"
+                    >{{ preference?.id }}. {{ infoCandidate }}
+                  </ion-label>
+                </div>
               </div>
-            </div>
-            <div class="selectedParty">
-              <ion-label class="selectedPartyLabel">{{ party.name }}</ion-label>
-              <br /><br />
-              <ion-label class="selectedPrefrence" v-show="hasPreference()"
-                >{{ preference?.id }}. {{ infoCandidate }}
-              </ion-label>
             </div>
           </div>
         </div>
@@ -128,22 +140,21 @@ export default defineComponent({
 }
 
 .infoContainer {
-  margin: 8px auto;
+  margin-top: 8px;
+  padding: 8px;
 }
 
-.infoTitle {
-  padding: 8px;
+.infoTitleLabel {
   font-size: x-large;
   font-weight: 600;
 }
 
-.infoDescription {
-  padding: 8px;
+.infoDescriptionLabel {
   font-size: 16px;
 }
 
 .previewContainer {
-  margin: 32px auto;
+  margin: 16px auto;
   width: 80%;
   border: 4px solid var(--tigm-border-color);
   border-radius: 4px;
@@ -165,64 +176,51 @@ export default defineComponent({
   border: 2px solid var(--tigm-border-color);
 }
 
-.previewTitleContainer {
+.voteContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.box {
   margin-top: 8px;
   margin-left: 24px;
-  margin-right: 24px;
-}
-
-.previewTitle {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.pageFooter {
-  height: 100px;
+  min-width: 18px;
+  width: 18px;
+  height: 18px;
+  max-height: 18px;
+  background: var(--tigm-button-background-color);
 }
 
 .partyContainer {
   display: flex;
   flex-direction: row;
-  /*border: 1px solid red;*/
 }
 
-.boxContainer {
+.line {
   margin-top: 8px;
-  margin-left: 24px;
-  width: 20px;
-  /*border: 1px solid magenta;*/
+  margin-left: -10px;
+  margin-bottom: 24px;
+  width: 15px;
+  border-left: 1px solid var(--tigm-border-color);
+  border-bottom: 1px solid var(--tigm-border-color);
 }
 
-.box {
-  width: 20px;
-  min-height: 20px;
-  background: var(--tigm-button-background-color);
-}
-
-.lineContainer {
-  text-align: center;
-}
-
-.verticalLine {
-  margin-left: 9px;
-  margin-bottom: 16px;
-  width: 1px;
-  height: 30px;
-  background: var(--tigm-border-color);
-}
-
-.selectedParty {
+.partyLabelContainer {
   margin-left: 16px;
   margin-right: 16px;
   margin-top: 8px;
   margin-bottom: 16px;
 }
 
-.selectedPartyLabel {
+.partyLabel {
   font-size: 16px;
 }
 
-.selectedPreference {
+.preferenceLabelContainer {
+  margin-top: 8px;
+}
+
+.preferenceLabel {
   font-size: 14px;
 }
 
@@ -234,12 +232,16 @@ export default defineComponent({
 .changeButton {
   width: 60%;
   text-transform: none;
-  font-size: 16px;  
+  font-size: 16px;
   --background: var(--tigm-button-background-color);
   --background-activated: var(--tigm-button-activated-color);
   --color: white;
   min-height: 35px;
   height: 35px;
+}
+
+.pageFooter {
+  height: 100px;
 }
 
 .voteButton {
