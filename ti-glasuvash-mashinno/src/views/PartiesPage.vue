@@ -2,13 +2,7 @@
   <ion-page>
     <ion-content>
       <div class="container">
-        <div class="pageHeader">
-          <ion-label class="rik">
-            {{ electionRegionText }} 310000000 {{ sectionText }} 000000035
-          </ion-label>
-          <br />
-          <ion-label class="title">{{ title }}</ion-label>
-        </div>
+        <page-header-component></page-header-component>
         <!-- parties -->
         <div class="partiesContainer">
           <div class="partiesList">
@@ -58,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
+import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { PartiesPageStrings } from "@/utils/LocalizedStrings";
@@ -66,6 +60,7 @@ import { Party, Preference } from "@/store/parties/types";
 import { PartiesBuilder } from "@/store/parties/parties-builder";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
 
+import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 import PartyComponent from "@/components/PartyComponent.vue";
 import PreferencesComponent from "@/components/PreferencesComponent.vue";
 
@@ -74,8 +69,8 @@ export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonLabel,
-    IonButton,
+    IonButton, 
+    PageHeaderComponent, 
     PartyComponent,
     PreferencesComponent,
   },
@@ -86,9 +81,6 @@ export default defineComponent({
   },
   data() {
     return {
-      electionRegionText: PartiesPageStrings.electionRegion,
-      sectionText: PartiesPageStrings.section,
-      title: PartiesPageStrings.title,
       prevPageTitle: PartiesPageStrings.prevPage,
       nextPageTitle: PartiesPageStrings.nextPage,
       previewButtonTitle: PartiesPageStrings.buttonPreview,
@@ -180,26 +172,10 @@ export default defineComponent({
   margin: 4px;
 }
 
-.pageHeader {
-  padding: 8px;
-}
-
-.rik {
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--tigm-text-color);
-}
-
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--tigm-text-color);
-}
-
 .partiesContainer {
   flex-direction: row;
   display: flex;
-  border: 4px solid var(--tigm-text-color);
+  border: 4px solid var(--tigm-border-color);
 }
 
 .partiesList {
@@ -207,7 +183,7 @@ export default defineComponent({
 }
 
 .buttonsContainer {
-  border-right: 1px solid var(--tigm-text-color);
+  border-right: 1px solid var(--tigm-border-color);
   width: 100%;
   height: 100px;
 }
@@ -218,9 +194,9 @@ export default defineComponent({
   --background-activated: var(--tigm-button-activated-color);
   --border-style: solid;
   --border-width: 2px;
-  --border-color: var(--tigm-text-color);
+  --border-color: var(--tigm-border-color);
   --border-radius: 4px;
-  --color: var(--tigm-text-color);
+  --color: var(--tigm-button-background-color);
   --padding-start: 8px;
   --padding-end: 8px;
   --padding-top: 8px;
@@ -228,8 +204,8 @@ export default defineComponent({
   font-size: 12px;
   font-weight: 600;
   text-transform: none;
-  min-height: 40px;
-  height: 40px;
+  min-height: 30px;
+  height: 30px;
 }
 
 .nextPageButton {
@@ -250,13 +226,14 @@ export default defineComponent({
   float: right;
   margin-top: 30px;
   margin-right: 8px;
-  --background: var(--tigm-text-color);
+  --background: var(--tigm-button-background-color);
+  --background-activated: var(--tigm-button-activated-color);
   --color: white;
   text-transform: none;
   font-size: 16px;
   min-width: 160px;
   width: 160px;
-  min-height: 40px;
-  height: 40px;
+  min-height: 35px;
+  height: 35px;
 }
 </style>

@@ -91,14 +91,14 @@ export default defineComponent({
 
 <style scoped>
 .componentContainer {
-  border-right: 1px solid var(--tigm-text-color);
-  border-bottom: 1px solid var(--tigm-text-color);
+  border-right: 1px solid var(--tigm-border-color);
+  border-bottom: 1px solid var(--tigm-border-color);
   min-height: 60px;
   background: white;
 }
 
 .componentContainerSelected {
-  background: var(--tigm-text-color);
+  background: var(--tigm-button-background-color);
 }
 
 .ionItem {
@@ -106,7 +106,7 @@ export default defineComponent({
 }
 
 .ionItemSelected {
-  --background: var(--tigm-text-color);
+  --background: var(--tigm-button-background-color);
 }
 
 .idItemSelected {
@@ -118,7 +118,6 @@ export default defineComponent({
   padding: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--tigm-text-color);
 }
 
 .nameItemSelected {

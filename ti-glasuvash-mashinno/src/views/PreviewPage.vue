@@ -2,13 +2,8 @@
   <ion-page>
     <ion-content>
       <div class="container">
-        <div class="pageHeader">
-          <ion-label class="rik">
-            {{ electionRegionText }} 310000000 {{ sectionText }} 000000035
-          </ion-label>
-          <br />
-          <ion-label class="title">{{ title }}</ion-label>
-        </div>
+        <page-header-component></page-header-component>
+        <!-- Info -->
         <div class="infoContainer">
           <div class="info">
             <ion-label class="infoTitle">{{ infoTitle }}</ion-label>
@@ -41,7 +36,9 @@
           </div>
         </div>
         <div class="changeButtonContainer">
-          <ion-button class="changeButton" @click="didPressChange()">{{ changeButtonTitle }}</ion-button>
+          <ion-button class="changeButton" @click="didPressChange()">{{
+            changeButtonTitle
+          }}</ion-button>
         </div>
         <!-- Page footer -->
         <div class="pageFooter">
@@ -58,13 +55,11 @@
 import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import {
-  PartiesPageStrings,
-  PreviewPageStrings,
-} from "@/utils/LocalizedStrings";
-
+import { PreviewPageStrings } from "@/utils/LocalizedStrings";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
 import { Party, Preference } from "@/store/parties/types";
+
+import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 
 export default defineComponent({
   name: "Preview",
@@ -73,6 +68,7 @@ export default defineComponent({
     IonPage,
     IonLabel,
     IonButton,
+    PageHeaderComponent,
   },
   setup() {
     const router = useRouter();
@@ -81,12 +77,9 @@ export default defineComponent({
   },
   data() {
     return {
-      electionRegionText: PartiesPageStrings.electionRegion,
-      sectionText: PartiesPageStrings.section,
-      title: PartiesPageStrings.title,
       infoTitle: PreviewPageStrings.title,
-      infoDescription: PreviewPageStrings.description, 
-      infoCandidate: PreviewPageStrings.candidate, 
+      infoDescription: PreviewPageStrings.description,
+      infoCandidate: PreviewPageStrings.candidate,
       changeButtonTitle: PreviewPageStrings.changeButton,
       voteButtonTitle: PreviewPageStrings.voteButton,
       party: {} as Party,
@@ -112,7 +105,7 @@ export default defineComponent({
     },
     hasPreference() {
       return this.preference?.id > 0;
-    }, 
+    },
     resetSelectedValues() {
       localStorage.removeItem(LocalStorageKeys.party);
       localStorage.removeItem(LocalStorageKeys.preference);
@@ -134,22 +127,6 @@ export default defineComponent({
   margin: 8px;
 }
 
-.pageHeader {
-  padding: 8px;
-}
-
-.rik {
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--tigm-text-color);
-}
-
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--tigm-text-color);
-}
-
 .infoContainer {
   margin: 8px auto;
 }
@@ -158,26 +135,23 @@ export default defineComponent({
   padding: 8px;
   font-size: x-large;
   font-weight: 600;
-  color: var(--tigm-text-color);
 }
 
 .infoDescription {
   padding: 8px;
   font-size: 16px;
-  color: var(--tigm-text-color);
 }
 
 .previewContainer {
   margin: 32px auto;
   width: 80%;
-  border: 4px solid var(--tigm-text-color);
+  border: 4px solid var(--tigm-border-color);
   border-radius: 4px;
 }
 
 .previewSection {
   font-size: 16px;
   font-weight: bold;
-  color: var(--tigm-text-color);
 }
 
 .previewSectionContainer {
@@ -188,7 +162,7 @@ export default defineComponent({
 .previewSeparator {
   margin-left: 24px;
   margin-right: 24px;
-  border: 2px solid var(--tigm-text-color);
+  border: 2px solid var(--tigm-border-color);
 }
 
 .previewTitleContainer {
@@ -222,7 +196,7 @@ export default defineComponent({
 .box {
   width: 20px;
   min-height: 20px;
-  background: var(--tigm-text-color);
+  background: var(--tigm-button-background-color);
 }
 
 .lineContainer {
@@ -234,7 +208,7 @@ export default defineComponent({
   margin-bottom: 16px;
   width: 1px;
   height: 30px;
-  background: var(--tigm-text-color);
+  background: var(--tigm-border-color);
 }
 
 .selectedParty {
@@ -246,12 +220,10 @@ export default defineComponent({
 
 .selectedPartyLabel {
   font-size: 16px;
-  color: var(--tigm-text-color);
 }
 
 .selectedPreference {
   font-size: 14px;
-  color: var(--tigm-text-color);
 }
 
 .changeButtonContainer {
@@ -262,22 +234,26 @@ export default defineComponent({
 .changeButton {
   width: 60%;
   text-transform: none;
-  font-size: 16px;
-  --background: var(--tigm-text-color);
+  font-size: 16px;  
+  --background: var(--tigm-button-background-color);
+  --background-activated: var(--tigm-button-activated-color);
   --color: white;
+  min-height: 35px;
+  height: 35px;
 }
 
 .voteButton {
   float: right;
   margin-top: 60px;
   margin-right: 8px;
-  --background: var(--tigm-text-color);
+  --background: var(--tigm-button-background-color);
+  --background-activated: var(--tigm-button-activated-color);
   --color: white;
   text-transform: none;
   font-size: 16px;
   min-width: 160px;
   width: 160px;
-  min-height: 40px;
-  height: 40px;
+  min-height: 35px;
+  height: 35px;
 }
 </style>

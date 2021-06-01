@@ -38,8 +38,8 @@ export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonLabel, 
-    IonButton
+    IonLabel,
+    IonButton,
   },
   setup() {
     const router = useRouter();
@@ -67,7 +67,6 @@ export default defineComponent({
 #titleLabel {
   font-size: x-large;
   font-weight: bold;
-  color: var(--tigm-text-color);
 }
 
 #subtitleContainer {
@@ -79,7 +78,6 @@ export default defineComponent({
 #subtitleContainer p {
   font-size: 16px;
   line-height: 22px;
-  color: var(--tigm-text-color);
   text-align: center;
 }
 
@@ -117,13 +115,6 @@ export default defineComponent({
 
 #cardButtonContainer {
   margin-top: 16px;
-  /*
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 80%;
-  transform: translateY(-80%);
-  */
 }
 
 #cardButton {

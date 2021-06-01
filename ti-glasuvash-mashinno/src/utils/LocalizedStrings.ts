@@ -4,10 +4,13 @@ export const enum HomePageStrings {
     cardButtonTitle = "Поставете карта"
 }
 
-export const enum PartiesPageStrings {
+export const enum PageHeaderStrings {
     electionRegion = "Регйон",
     section = "Секция",
     title = "НАРОДНИ ПРЕДСТАВИТЕЛИ",
+}
+
+export const enum PartiesPageStrings {
     preferenceTitle = "Предпочитание (преференция) за кандидат",
     prevPage = "Предишен",
     nextPage = "Следващ",
@@ -17,9 +20,9 @@ export const enum PartiesPageStrings {
 
 export const enum PreviewPageStrings {
     title = "Преглед на направените избори",
-    description = "Прегледайте избора си по-долу. Докоснете бутона „Гласуване“, за да завършите процеса на гласуване и да отпечатате разписката си. Можете да промените всеки от изборите си по-долу, като докоснете „Промени избора“.", 
-    candidate = "Име на кандидат", 
-    changeButton = "Промени избора", 
+    description = "Прегледайте избора си по-долу. Докоснете бутона „Гласуване“, за да завършите процеса на гласуване и да отпечатате разписката си. Можете да промените всеки от изборите си по-долу, като докоснете „Промени избора“.",
+    candidate = "Име на кандидат",
+    changeButton = "Промени избора",
     voteButton = "Гласуване"
 }
 
@@ -27,4 +30,8 @@ export const enum VotePageStrings {
     title = "Благодаря Ви!",
     subtitle = "Отпечатване на разписката",
     waiting = "Моля изчакайте ..."
+}
+
+export const enum RemoveCardPageStrings {
+    title = "Извадете картата, за да продължите."
 }

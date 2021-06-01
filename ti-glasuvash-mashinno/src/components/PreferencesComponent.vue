@@ -13,7 +13,7 @@
               <span
                 class="idItem"
                 v-bind:class="{
-                  spanBoxSelected: selectedPreference?.id === pref.id,
+                  idItemSelected: selectedPreference?.id === pref.id,
                 }"
                 >{{ pref.id }}</span
               >
@@ -83,7 +83,6 @@ export default defineComponent({
 .title {
   font-size: 14px;
   font-weight: 600;
-  color: var(--tigm-text-color);
 }
 
 .ionItem {
@@ -98,8 +97,8 @@ export default defineComponent({
   border-radius: 20px !important;
 }
 
-.spanBoxSelected {
+.idItemSelected {
   color: white;
-  background: var(--tigm-text-color);
+  background: var(--tigm-button-background-color);
 }
 </style>

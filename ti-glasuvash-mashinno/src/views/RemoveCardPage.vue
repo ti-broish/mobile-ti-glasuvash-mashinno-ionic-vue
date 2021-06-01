@@ -2,9 +2,8 @@
   <ion-page>
     <ion-content>
       <div class="contentContainer">
-        <frame-component :pTitle="title" :pSubtitle="subtitle"></frame-component>
-        <div id="waitingContainer">
-          <ion-label id="waitingLabel">{{ waitingTitle }}</ion-label>
+        <div class="removeCardContainer">
+          <ion-label class="removeCardLabel">{{ title }}</ion-label>
         </div>
       </div>
     </ion-content>
@@ -15,9 +14,7 @@
 import { IonContent, IonPage, IonLabel } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { VotePageStrings } from "@/utils/LocalizedStrings";
-
-import FrameComponent from "@/components/FrameComponent.vue";
+import { RemoveCardPageStrings } from "@/utils/LocalizedStrings";
 
 export default defineComponent({
   name: "Vote",
@@ -25,7 +22,6 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonLabel,
-    FrameComponent
   },
   setup() {
     const router = useRouter();
@@ -34,17 +30,15 @@ export default defineComponent({
   },
   data() {
     return {
-      title: VotePageStrings.title,
-      subtitle: VotePageStrings.subtitle,
-      waitingTitle: VotePageStrings.waiting,
+      title: RemoveCardPageStrings.title,
     };
   },
   methods: {
     countdown() {
       const timeinterval = setInterval(() => {
         clearInterval(timeinterval);
-        this.$router.replace("/remove-card");
-      }, 3000);
+        this.$router.replace("/home");
+      }, 5000);
     },
   },
   ionViewWillEnter() {
@@ -54,12 +48,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#waitingContainer {
-  margin-top: 32px;
+.removeCardContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   text-align: center;
 }
 
-#waitingLabel {
+.removeCardLabel {
   font-size: 16px;
   font-weight: 600;
   color: var(--tigm-border-color);
