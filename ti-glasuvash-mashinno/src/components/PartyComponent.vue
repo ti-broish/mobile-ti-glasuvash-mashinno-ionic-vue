@@ -115,7 +115,10 @@ export default defineComponent({
 }
 
 .nameItem {
-  padding: 8px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
   font-weight: 600;
 }

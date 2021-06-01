@@ -14,10 +14,10 @@ export default defineComponent({
 
 <style scoped>
 .selectedImageBox {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   text-align: center;
-  margin-top: -40px;
+  margin-top: -35px;
 }
 
 .selectedImage {

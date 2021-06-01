@@ -16,14 +16,14 @@ http://ionicframework.com/docs/theming/ */
   font-size: 14px;
   border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
+  width: 35px;
+  min-width: 35px;
+  max-width: 35px;
+  height: 35px;
+  min-height: 35px;
+  max-height: 35px;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 6px;
 }
 
 /** Ionic CSS Variables **/
