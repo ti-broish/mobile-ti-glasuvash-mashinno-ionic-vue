@@ -11,15 +11,16 @@
           >
             <div>
               <span
-                class="spanBox"
+                class="idItem"
                 v-bind:class="{
                   spanBoxSelected: selectedPreference?.id === pref.id,
                 }"
                 >{{ pref.id }}</span
               >
-              <div class="boxX" v-show="selectedPreference?.id === pref.id">
-                <span class="spanBoxX">x</span>
-              </div>
+              <selected-box-component
+                v-show="selectedPreference?.id === pref.id"
+              >
+              </selected-box-component>
             </div>
           </ion-item>
         </ion-col>
@@ -33,6 +34,8 @@ import { IonGrid, IonRow, IonCol, IonItem } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { PartiesPageStrings } from "@/utils/LocalizedStrings";
 import { Preference } from "@/store/parties/types";
+
+import SelectedBoxComponent from "@/components/SelectedBoxComponent.vue";
 
 export default defineComponent({
   name: "PreferencesComponent",
@@ -48,6 +51,7 @@ export default defineComponent({
     IonRow,
     IonCol,
     IonItem,
+    SelectedBoxComponent,
   },
   data() {
     return {
@@ -90,37 +94,12 @@ export default defineComponent({
   --inner-padding-end: 0px;
 }
 
-.spanBox {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 14px;
-  color: var(--tigm-text-color);
-  border: 2px solid var(--tigm-text-color);
-  border-radius: 20px;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
-  text-align: center;
-  padding-top: 8px;
+.idItem {
+  border-radius: 20px !important;
 }
 
 .spanBoxSelected {
   color: white;
   background: var(--tigm-text-color);
-}
-
-.boxX {
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  margin-top: -40px;
-}
-
-.spanBoxX {
-  font-size: 30px;
-  color: white;
 }
 </style>

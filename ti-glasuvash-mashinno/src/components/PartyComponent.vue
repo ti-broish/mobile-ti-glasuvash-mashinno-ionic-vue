@@ -11,30 +11,28 @@
     >
       <div>
         <div v-if="party.id < 10">
-          <span class="spanBox" v-bind:class="{ spanBoxSelected: isSelected() }"
+          <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }"
             >0{{ party?.id }}
           </span>
         </div>
         <div v-else-if="party.id === 31">
           <span
-            class="spanBox"
-            v-bind:class="{ spanBoxSelected: isSelected() }"
+            class="idItem"
+            v-bind:class="{ idItemSelected: isSelected() }"
           ></span>
         </div>
         <div v-else>
           <span
-            class="spanBox"
-            v-bind:class="{ spanBoxSelected: isSelected() }"
+            class="idItem"
+            v-bind:class="{ idItemSelected: isSelected() }"
             >{{ party?.id }}</span
           >
         </div>
-        <div id="boxX" v-show="isSelected()">
-          <span id="spanBoxX">x</span>
-        </div>
+        <selected-box-component v-show="isSelected()"></selected-box-component>
       </div>
       <span
-        class="spanText"
-        v-bind:class="{ spanTextSelected: isSelected() }"
+        class="nameItem"
+        v-bind:class="{ nameItemSelected: isSelected() }"
         >{{ party?.name }}</span
       >
     </ion-item>
@@ -44,6 +42,8 @@
 <script lang="ts">
 import { IonItem } from "@ionic/vue";
 import { defineComponent } from "vue";
+
+import SelectedBoxComponent from "@/components/SelectedBoxComponent.vue";
 
 export default defineComponent({
   name: "PartyComponent",
@@ -56,6 +56,7 @@ export default defineComponent({
   },
   components: {
     IonItem,
+    SelectedBoxComponent,
   },
   data() {
     return {
@@ -108,48 +109,19 @@ export default defineComponent({
   --background: var(--tigm-text-color);
 }
 
-.spanBox {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 14px;
-  color: var(--tigm-text-color);
-  border: 2px solid var(--tigm-text-color);
-  border-radius: 4px;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
-  text-align: center;
-  padding-top: 8px;
-}
-
-.spanBoxSelected {
+.idItemSelected {
   color: white;
   border: 2px solid white;
 }
 
-#boxX {
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  margin-top: -40px;
-}
-
-#spanBoxX {
-  font-size: 30px;
-  color: white;
-}
-
-.spanText {
+.nameItem {
   padding: 8px;
   font-size: 14px;
   font-weight: 600;
   color: var(--tigm-text-color);
 }
 
-.spanTextSelected {
+.nameItemSelected {
   color: white;
 }
 </style>

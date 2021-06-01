@@ -10,6 +10,23 @@ http://ionicframework.com/docs/theming/ */
   padding: 16px;
 }
 
+.idItem {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--tigm-text-color);
+  border: 2px solid var(--tigm-text-color);
+  border-radius: 4px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  text-align: center;
+  padding-top: 8px;
+}
+
 /** Ionic CSS Variables **/
 :root {
   --ion-background-color: #FFFFFF;

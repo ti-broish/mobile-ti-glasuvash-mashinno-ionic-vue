@@ -35,7 +35,7 @@
               <ion-label class="selectedPartyLabel">{{ party.name }}</ion-label>
               <br /><br />
               <ion-label class="selectedPrefrence" v-show="hasPreference()"
-                >{{ preference?.id }} {{ preference?.name }}
+                >{{ preference?.id }}. {{ infoCandidate }}
               </ion-label>
             </div>
           </div>
@@ -85,7 +85,8 @@ export default defineComponent({
       sectionText: PartiesPageStrings.section,
       title: PartiesPageStrings.title,
       infoTitle: PreviewPageStrings.title,
-      infoDescription: PreviewPageStrings.description,
+      infoDescription: PreviewPageStrings.description, 
+      infoCandidate: PreviewPageStrings.candidate, 
       changeButtonTitle: PreviewPageStrings.changeButton,
       voteButtonTitle: PreviewPageStrings.voteButton,
       party: {} as Party,
