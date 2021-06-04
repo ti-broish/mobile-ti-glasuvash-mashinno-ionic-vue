@@ -5,7 +5,7 @@ export const enum HomePageStrings {
 }
 
 export const enum PageHeaderStrings {
-    electionRegion = "Регйон",
+    electionRegion = "Район",
     section = "Секция",
     title = "НАРОДНИ ПРЕДСТАВИТЕЛИ",
 }
@@ -19,11 +19,13 @@ export const enum PartiesPageStrings {
 }
 
 export const enum PreviewPageStrings {
-    title = "Преглед на направените избори",
-    description = "Прегледайте избора си по-долу. Докоснете бутона „Гласуване“, за да завършите процеса на гласуване и да отпечатате разписката си. Можете да промените всеки от изборите си по-долу, като докоснете „Промени избора“.",
-    candidate = "Име на кандидат",
+    infoSectionTitle = "Преглед на направените избори",
+    infoSectionDescription = "Прегледайте избора си по-долу. Докоснете бутона „Гласуване“, за да завършите процеса на гласуване и да отпечатате разписката си. Можете да промените всеки от изборите си по-долу, като докоснете „Промени избора“.",
+    previewTitle = "Избори за Народни представители 2021", 
+    candidatePlaceholder = "Име на кандидат",
+    noVoteTitle = "Не е направен избор", 
     changeButton = "Промени избора",
-    voteButton = "Гласуване"
+    voteButton = "Гласуване",
 }
 
 export const enum VotePageStrings {

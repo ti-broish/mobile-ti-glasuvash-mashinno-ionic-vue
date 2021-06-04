@@ -17,33 +17,49 @@
             <ion-label class="previewSection">000000035</ion-label>
           </div>
           <div class="previewSeparator"></div>
+          <div class="previewTitleContainer">
+            <ion-label class="previewTitleLabel">{{ previewTitle }}</ion-label>
+          </div>
           <!-- Vote -->
-          <div class="voteContainer">
-            <div class="box"></div>
-            <div class="partyContainer">
-              <div class="line"></div>
-              <div class="partyLabelContainer">
-                <div v-if="party.id < 10">
-                  <ion-label class="partyLabel"
-                    >0{{ party.id }}. {{ party.name }}</ion-label
-                  >
-                </div>
-                <div v-else-if="party.id === 31">
-                  <ion-label class="partyLabel">{{
-                    party.name
-                  }}</ion-label>
-                </div>
-                <div v-else>
-                  <ion-label class="partyLabel"
-                    >0{{ party.id }}. {{ party.name }}</ion-label
-                  >
-                </div>
-                <div class="preferenceLabelContainer">
-                  <ion-label class="prefrenceLabel" v-show="hasPreference()"
-                    >{{ preference?.id }}. {{ infoCandidate }}
-                  </ion-label>
+          <div v-if="hasParty()">
+            <div class="voteContainer">
+              <div class="box"></div>
+              <div class="partyContainer">
+                <div class="line"></div>
+
+                <div class="partyLabelContainer">
+                  <div v-if="party.id < 10">
+                    <ion-label class="partyLabel"
+                      >0{{ party.id }}. {{ party.name }}</ion-label
+                    >
+                  </div>
+                  <div v-else-if="party.id === 31">
+                    <ion-label class="partyLabel">{{ party.name }}</ion-label>
+                  </div>
+                  <div v-else>
+                    <ion-label class="partyLabel"
+                      >0{{ party.id }}. {{ party.name }}</ion-label
+                    >
+                  </div>
+                  <div class="preferenceLabelContainer">
+                    <div v-if="hasPreference()">
+                      <ion-label class="prefrenceLabel"
+                        >{{ preference?.id }}. {{ infoCandidate }}
+                      </ion-label>
+                    </div>
+                    <div v-else>
+                      <ion-label class="noVoteLabel">{{
+                        noVoteTitle
+                      }}</ion-label>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="noVoteContainer">
+              <ion-label class="noVoteLabel">{{ noVoteTitle }}</ion-label>
             </div>
           </div>
         </div>
@@ -54,9 +70,12 @@
         </div>
         <!-- Page footer -->
         <div class="pageFooter">
-          <ion-button class="voteButton" @click="didPressVote()">{{
-            voteButtonTitle
-          }}</ion-button>
+          <ion-button
+            class="voteButton"
+            @click="didPressVote()"
+            :disabled="!hasParty()"
+            >{{ voteButtonTitle }}</ion-button
+          >
         </div>
       </div>
     </ion-content>
@@ -89,9 +108,11 @@ export default defineComponent({
   },
   data() {
     return {
-      infoTitle: PreviewPageStrings.title,
-      infoDescription: PreviewPageStrings.description,
-      infoCandidate: PreviewPageStrings.candidate,
+      infoTitle: PreviewPageStrings.infoSectionTitle,
+      infoDescription: PreviewPageStrings.infoSectionDescription,
+      infoCandidate: PreviewPageStrings.candidatePlaceholder,
+      previewTitle: PreviewPageStrings.previewTitle,
+      noVoteTitle: PreviewPageStrings.noVoteTitle,
       changeButtonTitle: PreviewPageStrings.changeButton,
       voteButtonTitle: PreviewPageStrings.voteButton,
       party: {} as Party,
@@ -114,6 +135,9 @@ export default defineComponent({
         const storedPreference: Preference = JSON.parse(preferenceJSON);
         this.preference = storedPreference;
       }
+    },
+    hasParty() {
+      return this.party?.id > 0;
     },
     hasPreference() {
       return this.preference?.id > 0;
@@ -166,7 +190,7 @@ export default defineComponent({
 }
 
 .previewSectionContainer {
-  margin: 8px auto;
+  margin: 16px auto;
   text-align: center;
 }
 
@@ -176,9 +200,29 @@ export default defineComponent({
   border: 2px solid var(--tigm-border-color);
 }
 
+.previewTitleContainer {
+  margin: 16px auto;
+  width: 80%;
+  text-align: center;
+}
+
+.previewTitleLabel {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .voteContainer {
   display: flex;
   flex-direction: row;
+}
+
+.noVoteContainer {
+  margin: 16px auto;
+  text-align: center;
+}
+
+.noVoteLabel {
+  font-size: 16px;
 }
 
 .box {

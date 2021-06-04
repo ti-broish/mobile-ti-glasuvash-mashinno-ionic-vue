@@ -1,6 +1,13 @@
 <template>
-  <div class="selectedImageBox">
-    <img class="selectedImage" src="/assets/close.svg" />
+  <div v-if="pHasValue">
+    <div class="selectedImageBox">
+      <img class="selectedImage" src="/assets/close.svg" />
+    </div>
+  </div>
+  <div v-else>
+    <div class="selectedImageBoxNoValue">
+      <img class="selectedImage" src="/assets/close.svg" />
+    </div>
   </div>
 </template>
 
@@ -9,6 +16,9 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SelectedBoxComponent",
+  props: {
+    pHasValue: Boolean,
+  },
 });
 </script>
 
@@ -18,6 +28,13 @@ export default defineComponent({
   height: 35px;
   text-align: center;
   margin-top: -35px;
+}
+
+.selectedImageBoxNoValue {
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  margin-top: -39px;
 }
 
 .selectedImage {

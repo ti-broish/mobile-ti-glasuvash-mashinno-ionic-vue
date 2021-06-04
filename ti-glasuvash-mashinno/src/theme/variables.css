@@ -14,8 +14,10 @@ http://ionicframework.com/docs/theming/ */
   display: inline-block;
   margin-top: 8px;
   font-size: 14px;
-  border: 2px solid var(--tigm-border-color);
+  border-color: var(--tigm-border-color);
+  border-style: solid;
   border-radius: 4px;
+  border-width: 2px;
   width: 35px;
   min-width: 35px;
   max-width: 35px;

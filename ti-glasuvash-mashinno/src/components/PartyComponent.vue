@@ -16,10 +16,8 @@
           </span>
         </div>
         <div v-else-if="party.id === 31">
-          <span
-            class="idItem"
-            v-bind:class="{ idItemSelected: isSelected() }"
-          ></span>
+          <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
+          </span>
         </div>
         <div v-else>
           <span
@@ -28,7 +26,10 @@
             >{{ party?.id }}</span
           >
         </div>
-        <selected-box-component v-show="isSelected()"></selected-box-component>
+        <selected-box-component
+          :pHasValue="selectedParty?.id !== 31"
+          v-show="isSelected()"
+        ></selected-box-component>
       </div>
       <span
         class="nameItem"

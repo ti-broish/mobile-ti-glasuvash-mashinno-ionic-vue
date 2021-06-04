@@ -69,8 +69,8 @@ export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonButton, 
-    PageHeaderComponent, 
+    IonButton,
+    PageHeaderComponent,
     PartyComponent,
     PreferencesComponent,
   },
@@ -104,7 +104,7 @@ export default defineComponent({
       console.log("parties: ", this.parties);
     },
     loadPreferences() {
-      for (let i = 1; i <= 12; i++) {
+      for (let i = 1; i <= 17; i++) {
         const preference = { id: 100 + i };
         this.preferences.push(preference);
       }
@@ -148,20 +148,16 @@ export default defineComponent({
       this.page += 1;
     },
     didPressPreview() {
-      if (this.selectedParty?.id > 0) {
-        localStorage.setItem(
-          LocalStorageKeys.party,
-          JSON.stringify(this.selectedParty)
-        );
-        localStorage.setItem(
-          LocalStorageKeys.preference,
-          JSON.stringify(this.selectedPreference)
-        );
+      localStorage.setItem(
+        LocalStorageKeys.party,
+        JSON.stringify(this.selectedParty)
+      );
+      localStorage.setItem(
+        LocalStorageKeys.preference,
+        JSON.stringify(this.selectedPreference)
+      );
 
-        this.$router.replace("/preview");
-      } else {
-        alert(PartiesPageStrings.noParty);
-      }
+      this.$router.replace("/preview");
     },
   },
 });
@@ -185,7 +181,7 @@ export default defineComponent({
 .buttonsContainer {
   border-right: 1px solid var(--tigm-border-color);
   width: 100%;
-  height: 100px;
+  height: 90px;
 }
 
 .pageButton {

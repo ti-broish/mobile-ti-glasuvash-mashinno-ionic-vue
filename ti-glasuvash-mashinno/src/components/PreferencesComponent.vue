@@ -18,6 +18,7 @@
                 >{{ pref.id }}</span
               >
               <selected-box-component
+                :pHasValue="true"
                 v-show="selectedPreference?.id === pref.id"
               >
               </selected-box-component>
@@ -81,7 +82,7 @@ export default defineComponent({
 
 <style scoped>
 .title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 
