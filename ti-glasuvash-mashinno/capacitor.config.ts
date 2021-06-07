@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ti-glasuvash-mashinno',
+  appId: 'bg.dabulgaria.tiglasuvash',
+  appName: 'Ти гласуваш',
   webDir: 'dist',
   bundledWebRuntime: false
 };
