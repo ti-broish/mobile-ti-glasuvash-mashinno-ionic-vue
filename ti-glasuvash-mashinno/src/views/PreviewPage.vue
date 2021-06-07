@@ -161,6 +161,7 @@ export default defineComponent({
 <style scoped>
 .container {
   margin: 8px;
+  padding-top: max(var(--ion-safe-area-top), 30px);
 }
 
 .infoContainer {

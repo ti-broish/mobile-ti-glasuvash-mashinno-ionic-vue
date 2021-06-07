@@ -166,6 +166,7 @@ export default defineComponent({
 <style scoped>
 .container {
   margin: 4px;
+  padding-top: max(var(--ion-safe-area-top), 30px);
 }
 
 .partiesContainer {
