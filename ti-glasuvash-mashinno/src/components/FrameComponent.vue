@@ -56,16 +56,15 @@ export default defineComponent({
 
 .frameContainer {
   margin: 16px auto;
-  width: 75%;
-  max-width: 1024px;
+  width: 320px;
   text-align: center;
   border: var(--tigm-border-color);
 }
 
 .frame1 {
   margin: auto;
-  width: 100%;
-  height: 350px;
+  width: 280px;
+  height: 380px;
   border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
 }

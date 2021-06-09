@@ -166,7 +166,7 @@ export default defineComponent({
 <style scoped>
 .container {
   margin: 4px;
-  /* padding-top: max(var(--ion-safe-area-top), 30px); */
+  /* padding-top: max(var(--ion-safe-area-top), 22px); */
 }
 
 .partiesContainer {
@@ -182,11 +182,11 @@ export default defineComponent({
 .buttonsContainer {
   border-right: 1px solid var(--tigm-border-color);
   width: 100%;
-  height: 90px;
+  height: 60px;
 }
 
 .pageButton {
-  margin-top: 30px;
+  margin-top: 15px;
   margin-left: 8px;
   --background-activated: var(--tigm-button-activated-color);
   --border-style: solid;
@@ -216,12 +216,12 @@ export default defineComponent({
 }
 
 .pageFooter {
-  height: 100px;
+  height: 80px;
 }
 
 .previewButton {
   float: right;
-  margin-top: 30px;
+  margin-top: 15px;
   margin-right: 8px;
   --background: var(--tigm-button-background-color);
   --background-activated: var(--tigm-button-activated-color);
