@@ -15,7 +15,7 @@
             >0{{ party?.id }}
           </span>
         </div>
-        <div v-else-if="party.id === 31">
+        <div v-else-if="party.id === 24">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
           </span>
         </div>
@@ -27,7 +27,7 @@
           >
         </div>
         <selected-box-component
-          :pHasValue="selectedParty?.id !== 31"
+          :pHasValue="selectedParty?.id !== 24"
           v-show="isSelected()"
         ></selected-box-component>
       </div>
@@ -92,7 +92,7 @@ export default defineComponent({
 
 <style scoped>
 .componentContainer {
-  border-right: 1px solid var(--tigm-border-color);
+  /* border-right: 1px solid var(--tigm-border-color); */
   border-bottom: 1px solid var(--tigm-border-color);
   min-height: 60px;
   background: white;

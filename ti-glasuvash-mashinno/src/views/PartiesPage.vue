@@ -36,7 +36,7 @@
               :pPreferences="preferences"
               :pSelectedPreference="selectedPreference"
               @select-preference="didSelectPreference($event)"
-              v-show="selectedParty?.id > 0 && selectedParty?.id < 31"
+              v-show="selectedParty?.id > 0 && selectedParty?.id < 24"
             ></preferences-component>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default defineComponent({
       console.log("parties: ", this.parties);
     },
     loadPreferences() {
-      for (let i = 1; i <= 17; i++) {
+      for (let i = 1; i <= 32; i++) {
         const preference = { id: 100 + i };
         this.preferences.push(preference);
       }
@@ -166,13 +166,15 @@ export default defineComponent({
 <style scoped>
 .container {
   margin: 4px;
-  /* padding-top: max(var(--ion-safe-area-top), 22px); */
+  padding-top: max(var(--ion-safe-area-top), 22px);
 }
 
 .partiesContainer {
   flex-direction: row;
   display: flex;
-  border: 4px solid var(--tigm-border-color);
+  border-left: 2px solid var(--tigm-border-color); 
+  border-top: 2px solid var(--tigm-border-color);
+  border-bottom: 2px solid var(--tigm-border-color);
 }
 
 .partiesList {
@@ -180,7 +182,7 @@ export default defineComponent({
 }
 
 .buttonsContainer {
-  border-right: 1px solid var(--tigm-border-color);
+  /* border-right: 4px solid var(--tigm-border-color); */
   width: 100%;
   height: 60px;
 }
@@ -213,6 +215,8 @@ export default defineComponent({
 .preferencesContainer {
   width: 40%;
   text-align: center;
+  border-left: 2px solid var(--tigm-border-color);
+  border-right: 2px solid var(--tigm-border-color);
 }
 
 .pageFooter {

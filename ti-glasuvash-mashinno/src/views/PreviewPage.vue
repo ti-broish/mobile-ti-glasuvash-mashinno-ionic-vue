@@ -33,12 +33,12 @@
                       >0{{ party.id }}. {{ party.name }}</ion-label
                     >
                   </div>
-                  <div v-else-if="party.id === 31">
+                  <div v-else-if="party.id === 24">
                     <ion-label class="partyLabel">{{ party.name }}</ion-label>
                   </div>
                   <div v-else>
                     <ion-label class="partyLabel"
-                      >0{{ party.id }}. {{ party.name }}</ion-label
+                      >{{ party.id }}. {{ party.name }}</ion-label
                     >
                   </div>
                   <div class="preferenceLabelContainer">
@@ -161,7 +161,7 @@ export default defineComponent({
 <style scoped>
 .container {
   margin: 8px;
-  /* padding-top: max(var(--ion-safe-area-top), 22px); */
+  padding-top: max(var(--ion-safe-area-top), 22px);
 }
 
 .infoContainer {
