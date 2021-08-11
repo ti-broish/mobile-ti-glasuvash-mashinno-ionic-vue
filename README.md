@@ -8,7 +8,7 @@ https://ionicframework.com/docs/vue/overview
 ```
 npm install -g @ionic/cli
 
-cd mobile-ti-glasuvash-mashinno-ionic-vue
+cd mobile-ti-glasuvash-mashinno-ionic-vue/ti-glasuvash-mashinno
 
 npm install
 ````
@@ -16,8 +16,6 @@ npm install
 # Стартиране 
 
 ```
-cd mobile-ti-glasuvash-mashinno-ionic-vue
-
 ionic serve
 ```
 # Добавяне на мобилните приложения
