@@ -4,6 +4,7 @@
   </div>
   <div class="frameSubtitleContainer">
     <p>{{ pSubtitle }}</p>
+    <p>{{ pHint }}</p>
   </div>
   <div class="frameContainer">
     <div class="frame1">
@@ -21,7 +22,8 @@ export default defineComponent({
   name: "FrameComponent",
   props: {
     pTitle: String,
-    pSubtitle: String,
+    pSubtitle: String, 
+    pHint: String
   },
   components: {
     IonLabel,

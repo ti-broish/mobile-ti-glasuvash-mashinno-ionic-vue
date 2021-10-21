@@ -1,13 +1,23 @@
 export const enum HomePageStrings {
-    title = "Добре дошли в Избори за народни представители в България 2021",
-    subtitle = "Поставете картата в слота за четене",
+    title = "ИЗБОРИ 14.11.2021",
+    subtitle = "Добре дошли",
+    hint = "Поставете картата в слота за четене",
     cardButtonTitle = "Поставете карта"
 }
 
 export const enum PageHeaderStrings {
     electionRegion = "Район",
     section = "Секция",
-    title = "НАРОДНИ ПРЕДСТАВИТЕЛИ",
+    title = "ИЗБОРИ 14.11.2021",
+}
+
+export const enum VoteOptionsPageStrings {
+    title = "Посочете в кои избори ще гласувате", 
+    subtitle = "Натиснете и потвърдете", 
+    option1 = "ИЗБОРИ ЗА ПРЕЗИДЕНТ И ВИЦЕПРЕЗИДЕНТ И ЗА НАРОДНИ ПРЕДСТАВИТЕЛИ", 
+    option2 = "ИЗБОРИ ЗА ПРЕЗИДЕНТ И ВИЦЕПРЕЗИДЕНТ", 
+    option3 = "ИЗБОРИ ЗА НАРОДНИ ПРЕДСТАВИТЕЛИ", 
+    confirmButton = "Потвърждавам"
 }
 
 export const enum PartiesPageStrings {

@@ -17,7 +17,7 @@ import { useRouter } from "vue-router";
 import { RemoveCardPageStrings } from "@/utils/LocalizedStrings";
 
 export default defineComponent({
-  name: "Vote",
+  name: "RemoveCard",
   components: {
     IonContent,
     IonPage,
