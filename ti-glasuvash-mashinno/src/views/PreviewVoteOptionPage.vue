@@ -59,9 +59,6 @@ export default defineComponent({
 
     return { router };
   },
-  mounted() {
-    this.loadSelectedVoteOption();
-  },
   data() {
     return {
       title: PreviewVoteOptionPageStrings.title,
@@ -70,6 +67,9 @@ export default defineComponent({
       prevButtonTitle: PreviewVoteOptionPageStrings.previousButton,
       confirmButtonTitle: VoteOptionsPageStrings.confirmButton,
     };
+  },
+  mounted() {
+    this.loadSelectedVoteOption();
   },
   methods: {
     loadSelectedVoteOption() {
@@ -84,7 +84,7 @@ export default defineComponent({
       this.$router.replace("/vote-options");
     },
     handleConfirmButton() {
-      // TODO: - implement
+      this.$router.replace("/presidents");
     },
   },
 });
@@ -99,7 +99,7 @@ export default defineComponent({
 .content {
   margin: 20px auto;
   border: 2px solid var(--tigm-border-color);
-  border-radius: 4px;
+  border-radius: 8px;
   min-width: 50%;
   width: 50%;
 }

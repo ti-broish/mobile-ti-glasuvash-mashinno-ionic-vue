@@ -15,6 +15,9 @@ import { PageHeaderStrings } from "@/utils/LocalizedStrings";
 
 export default defineComponent({
   name: "PageHeaderComponent", 
+  props: {
+    pTitle: String,
+  }, 
   components: {
     IonLabel,
   },
@@ -22,7 +25,7 @@ export default defineComponent({
     return {
       electionRegionText: PageHeaderStrings.electionRegion,
       sectionText: PageHeaderStrings.section,
-      title: PageHeaderStrings.title,
+      title: this.pTitle ?? PageHeaderStrings.title,
     };
   },
 });
