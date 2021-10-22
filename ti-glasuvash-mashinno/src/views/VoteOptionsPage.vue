@@ -13,6 +13,7 @@
           </div>
         </div>
         <div class="optionsList">
+          <!-- first option -->
           <div class="option">
             <ion-button
               class="optionButton"
@@ -20,10 +21,10 @@
               v-bind:class="{ optionButtonSelected: firstOptionSelected }"
               @click="handleFirstOptionSelected()"
             >
-              <ion-checkbox
+              <!-- <ion-checkbox
                 class="checkbox"
                 :checked="firstOptionSelected" 
-              ></ion-checkbox>
+              ></ion-checkbox> -->
               <span
                 class="optionText"
                 v-bind:class="{ optionTextSelected: firstOptionSelected }"
@@ -31,12 +32,53 @@
               >
             </ion-button>
           </div>
+          <!-- second option -->
+          <div class="option">
+            <ion-button
+              class="optionButton"
+              fill="clear"
+              v-bind:class="{ optionButtonSelected: secondOptionSelected }"
+              @click="handleSecondOptionSelected()"
+            >
+              <!-- <ion-checkbox
+                class="checkbox"
+                :checked="secondOptionSelected" 
+              ></ion-checkbox> -->
+              <span
+                class="optionText"
+                v-bind:class="{ optionTextSelected: secondOptionSelected }"
+                >{{ secondOptionText }}</span
+              >
+            </ion-button>
+          </div>
+          <!-- third option -->
+          <div class="option">
+            <ion-button
+              class="optionButton"
+              fill="clear"
+              v-bind:class="{ optionButtonSelected: thirdOptionSelected }"
+              @click="handleThirdOptionSelected()"
+            >
+              <!-- <ion-checkbox
+                class="checkbox"
+                :checked="thirdOptionSelected" 
+              ></ion-checkbox> -->
+              <span
+                class="optionText"
+                v-bind:class="{ optionTextSelected: thirdOptionSelected }"
+                >{{ thirdOptionText }}</span
+              >
+            </ion-button>
+          </div>
         </div>
         <!-- footer -->
         <div class="pageFooter">
-          <ion-button class="confirmButton" @click="handleConfirmButton()">{{
-            confirmButtonTitle
-          }}</ion-button>
+          <ion-button
+            class="confirmButton"
+            @click="handleConfirmButton()"
+            :disabled="!hasSelectedOption()"
+            >{{ confirmButtonTitle }}</ion-button
+          >
         </div>
       </div>
     </ion-content>
@@ -44,10 +86,17 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonButton, IonLabel, IonCheckbox } from "@ionic/vue";
+import {
+  IonContent,
+  IonPage,
+  IonButton,
+  IonLabel,
+  // IonCheckbox,
+} from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { VoteOptionsPageStrings } from "@/utils/LocalizedStrings";
+import { LocalStorageKeys } from "@/store/local-storage-keys";
 
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 
@@ -57,8 +106,8 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonButton,
-    IonLabel, 
-    IonCheckbox, 
+    IonLabel,
+    // IonCheckbox,
     PageHeaderComponent,
   },
   setup() {
@@ -72,17 +121,49 @@ export default defineComponent({
       subtitle: VoteOptionsPageStrings.subtitle,
       firstOptionText: VoteOptionsPageStrings.option1,
       firstOptionSelected: false,
+      secondOptionSelected: false,
+      thirdOptionSelected: false,
       secondOptionText: VoteOptionsPageStrings.option2,
       thirdOptionText: VoteOptionsPageStrings.option3,
       confirmButtonTitle: VoteOptionsPageStrings.confirmButton,
     };
   },
   methods: {
+    hasSelectedOption() {
+      return (
+        this.firstOptionSelected ||
+        this.secondOptionSelected ||
+        this.thirdOptionSelected
+      );
+    },
     handleConfirmButton() {
-      // TODO: - implement
+      let selectedOption = "";
+      if (this.firstOptionSelected) {
+        selectedOption = this.firstOptionText;
+      } else if (this.secondOptionSelected) {
+        selectedOption = this.secondOptionText;
+      } else if (this.thirdOptionSelected) {
+        selectedOption = this.thirdOptionText;
+      }
+
+      localStorage.setItem(LocalStorageKeys.selectedVoteOption, selectedOption);
+
+      this.$router.replace("/preview-vote-option");
     },
     handleFirstOptionSelected() {
       this.firstOptionSelected = !this.firstOptionSelected;
+      this.secondOptionSelected = false;
+      this.thirdOptionSelected = false;
+    },
+    handleSecondOptionSelected() {
+      this.secondOptionSelected = !this.secondOptionSelected;
+      this.firstOptionSelected = false;
+      this.thirdOptionSelected = false;
+    },
+    handleThirdOptionSelected() {
+      this.thirdOptionSelected = !this.thirdOptionSelected;
+      this.firstOptionSelected = false;
+      this.secondOptionSelected = false;
     },
   },
 });
@@ -96,13 +177,13 @@ export default defineComponent({
 
 .contentHeader {
   padding: 4px;
-  border: 1px solid var(--tigm-border-color);
+  /* border: 1px solid var(--tigm-border-color); */
 }
 
 .titleLabel {
   font-size: 22px;
   font-weight: bold;
-  border: 1px solid var(--tigm-border-color);
+  /* border: 1px solid var(--tigm-border-color); */
 }
 
 .subtitleContainer {
@@ -111,18 +192,19 @@ export default defineComponent({
 
 .subtitleLabel {
   font-size: 18px;
-  border: 1px solid var(--tigm-border-color);
+  /* border: 1px solid var(--tigm-border-color); */
 }
 
 .optionsList {
   margin: 20px auto;
   text-align: center;
-  border: 2px solid var(--tigm-border-color);
+  /* border: 2px solid var(--tigm-border-color); */
 }
 
 .option {
+  margin: 20px auto;
   text-align: center;
-  border: 2px solid magenta;
+  border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
   min-width: 50%;
   width: 50%;
@@ -136,6 +218,7 @@ export default defineComponent({
   --background-activated: var(--ion-background-color);
   --background-hover: var(--ion-background-color);
   --background-focused: var(--ion-background-color);
+  --border-radius: 0px;
   min-width: 100%;
   width: 100%;
   min-height: 100%;
@@ -151,6 +234,7 @@ export default defineComponent({
 }
 
 .checkbox {
+  margin-right: 8px;
   --background: none;
   --background-checked: none;
   --border-color: none;
@@ -175,17 +259,36 @@ export default defineComponent({
 }
 
 .confirmButton {
-  float: right;
+  /* float: right;
   margin-top: 15px;
   margin-right: 8px;
   --background: var(--tigm-button-background-color);
   --background-activated: var(--tigm-button-activated-color);
   --color: white;
   text-transform: none;
-  font-size: 16px;
+  font-size: 14px;
   min-width: 160px;
   width: 160px;
-  min-height: 35px;
-  height: 35px;
+  min-height: 36px;
+  height: 36px; */
+  float: right;
+  margin-top: 15px;
+  margin-left: 8px;
+  --background: var(--tigm-button-background-color);
+  --background-activated: var(--tigm-button-activated-color);
+  --border-style: solid;
+  --border-width: 2px;
+  --border-color: var(--tigm-border-color);
+  --border-radius: 8px;
+  --color: white;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  min-height: 36px;
+  height: 36px;
 }
 </style>

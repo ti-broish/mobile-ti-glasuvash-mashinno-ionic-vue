@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/VoteOptionsPage.vue')
   },
   {
+    path: '/preview-vote-option',
+    name: 'Preview vote option',
+    component: () => import('@/views/PreviewVoteOptionPage.vue')
+  },
+  {
     path: '/parties',
     name: 'Parties',
     component: () => import('@/views/PartiesPage.vue')

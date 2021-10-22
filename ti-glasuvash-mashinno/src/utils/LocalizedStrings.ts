@@ -20,6 +20,12 @@ export const enum VoteOptionsPageStrings {
     confirmButton = "Потвърждавам"
 }
 
+export const enum PreviewVoteOptionPageStrings {
+    title = "Вие избрахте да гласувате в:", 
+    description = "Потвърдете своя избор или се върнете назад.", 
+    previousButton = "Връщане назад"
+}
+
 export const enum PartiesPageStrings {
     preferenceTitle = "Предпочитание (преференция) за кандидат",
     prevPage = "Предишен",
