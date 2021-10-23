@@ -205,8 +205,8 @@ export default defineComponent({
   text-align: center;
   border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
-  min-width: 50%;
-  width: 50%;
+  min-width: 75%;
+  width: 75%;
   height: 100px;
 }
 

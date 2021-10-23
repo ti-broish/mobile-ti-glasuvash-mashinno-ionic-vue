@@ -27,7 +27,7 @@ export const enum CandidatesPageStrings {
 export const enum PreviewVoteOptionPageStrings {
     title = "Вие избрахте да гласувате в:", 
     description = "Потвърдете своя избор или се върнете назад.", 
-    previousButton = "Връщане назад"
+    previousButton = "Назад"
 }
 
 export const enum PartiesPageStrings {

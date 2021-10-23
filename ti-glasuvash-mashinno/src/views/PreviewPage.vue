@@ -20,12 +20,12 @@
           </div>
           <div class="previewSeparator"></div>
           <!-- Vote -->
+          <div class="previewTitleContainer">
+            <ion-label class="previewTitleLabel">{{
+              presidentPlaceholder
+            }}</ion-label>
+          </div>
           <div v-if="hasCandidates()">
-            <div class="previewTitleContainer">
-              <ion-label class="previewTitleLabel">{{
-                presidentPlaceholder
-              }}</ion-label>
-            </div>
             <div class="candidatesLabelContainer">
               <div v-if="candidates.id < 10">
                 <ion-label class="partyLabel"

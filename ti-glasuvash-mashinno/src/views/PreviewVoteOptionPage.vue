@@ -104,8 +104,8 @@ export default defineComponent({
   margin: 20px auto;
   border: 2px solid var(--tigm-border-color);
   border-radius: 8px;
-  min-width: 50%;
-  width: 50%;
+  min-width: 80%;
+  width: 80%;
 }
 
 .labelContainer {
