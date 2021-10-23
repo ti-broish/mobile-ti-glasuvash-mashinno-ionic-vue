@@ -15,7 +15,7 @@
             >0{{ party?.id }}
           </span>
         </div>
-        <div v-else-if="party.id === 24">
+        <div v-else-if="party.id === notaId">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
           </span>
         </div>
@@ -27,7 +27,7 @@
           >
         </div>
         <selected-box-component
-          :pHasValue="selectedParty?.id !== 24"
+          :pHasValue="selectedParty?.id !== notaId"
           v-show="isSelected()"
         ></selected-box-component>
       </div>
@@ -50,7 +50,8 @@ export default defineComponent({
   name: "PartyComponent",
   props: {
     pParty: Object,
-    pSelectedParty: Object,
+    pSelectedParty: Object, 
+    pNotaId: Number, // NOTA - None of the above
   },
   emits: {
     "select-party": null,
@@ -63,6 +64,7 @@ export default defineComponent({
     return {
       party: this.pParty ?? null,
       selectedParty: this.pSelectedParty ?? null,
+      notaId: this.pNotaId ?? -1
     };
   },
   methods: {

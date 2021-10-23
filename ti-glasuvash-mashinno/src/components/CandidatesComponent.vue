@@ -14,13 +14,13 @@
         v-bind:class="{ nameItemSelected: isSelected() }"
         >{{ candidates?.party }}</span
       >
-      <div>
+      <div class="idItemContainer">
         <div v-if="candidates.id < 10">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }"
             >0{{ candidates?.id }}
           </span>
         </div>
-        <div v-else-if="candidates.id === 36">
+        <div v-else-if="candidates.id === notaId">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
           </span>
         </div>
@@ -32,7 +32,7 @@
           >
         </div>
         <selected-box-component
-          :pHasValue="selectedCandidates?.id !== 36"
+          :pHasValue="selectedCandidates?.id !== notaId"
           v-show="isSelected()"
         ></selected-box-component>
       </div>
@@ -54,6 +54,7 @@ export default defineComponent({
   props: {
     pCandidates: Object,
     pSelectedCandidates: Object,
+    pNotaId: Number, // NOTA - None of the above
   },
   emits: {
     "select-candidates": null,
@@ -66,6 +67,7 @@ export default defineComponent({
     return {
       candidates: this.pCandidates ?? null,
       selectedCandidates: this.pSelectedCandidates ?? null,
+      notaId: this.pNotaId ?? -1
     };
   },
   methods: {
@@ -88,16 +90,15 @@ export default defineComponent({
     },
   },
   watch: {
-    pSelectedParty: "reload",
+    pSelectedCandidates: "reload",
   },
 });
 </script>
 
 <style scoped>
 .componentContainer {
-  /* border-right: 1px solid var(--tigm-border-color); */
-  /* border-bottom: 1px solid var(--tigm-border-color); */
-  border: 1px solid var(--tigm-border-color);
+  margin: auto;
+  border-bottom: 1px solid var(--tigm-border-color);
   min-height: 60px;
   background: white;
 }
@@ -119,6 +120,11 @@ export default defineComponent({
   border: 2px solid white;
 }
 
+.idItemContainer {
+  min-width: 10%;
+  width: 10%;
+}
+
 .partyItem {
   margin-top: 16px;
   margin-bottom: 8px;
@@ -126,6 +132,9 @@ export default defineComponent({
   padding-right: 8px;
   font-size: 14px;
   font-weight: 600;
+  min-width: 50%;
+  width: 50%;
+  text-align: left;
 }
 
 .nameItem {
@@ -135,6 +144,9 @@ export default defineComponent({
   padding-right: 8px;
   font-size: 14px;
   font-weight: 600;
+  min-width: 40%;
+  width: 40%;
+  text-align: right;
 }
 
 .nameItemSelected {

@@ -22,9 +22,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/PreviewVoteOptionPage.vue')
   },
   {
-    path: '/presidents',
-    name: 'Presidents',
-    component: () => import('@/views/PresidentsPage.vue')
+    path: '/candidates',
+    name: 'Candidates',
+    component: () => import('@/views/CandidatesPage.vue')
   },
   {
     path: '/parties',

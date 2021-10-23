@@ -14,10 +14,10 @@ import { defineComponent } from "vue";
 import { PageHeaderStrings } from "@/utils/LocalizedStrings";
 
 export default defineComponent({
-  name: "PageHeaderComponent", 
+  name: "PageHeaderComponent",
   props: {
     pTitle: String,
-  }, 
+  },
   components: {
     IonLabel,
   },
@@ -27,6 +27,14 @@ export default defineComponent({
       sectionText: PageHeaderStrings.section,
       title: this.pTitle ?? PageHeaderStrings.title,
     };
+  },
+  methods: {
+    reload() {
+      this.title = this.pTitle ?? PageHeaderStrings.title;
+    }
+  }, 
+  watch: {
+    pTitle: "reload",
   },
 });
 </script>

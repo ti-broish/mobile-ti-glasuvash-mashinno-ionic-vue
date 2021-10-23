@@ -147,7 +147,6 @@ export default defineComponent({
       }
 
       localStorage.setItem(LocalStorageKeys.selectedVoteOption, selectedOption);
-
       this.$router.replace("/preview-vote-option");
     },
     handleFirstOptionSelected() {

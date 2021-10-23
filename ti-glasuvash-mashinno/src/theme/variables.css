@@ -28,6 +28,49 @@ http://ionicframework.com/docs/theming/ */
   padding-top: 6px;
 }
 
+.pageButton {
+  margin-top: 15px;
+  margin-left: 8px;
+  --background-activated: var(--tigm-button-activated-color);
+  --border-style: solid;
+  --border-width: 2px;
+  --border-color: var(--tigm-border-color);
+  --border-radius: 4px;
+  --color: var(--tigm-button-background-color);
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  min-height: 30px;
+  height: 30px;
+}
+
+.nextPageButton {
+  float: right;
+  margin-right: 8px;
+}
+
+.pageFooter {
+  height: 80px;
+}
+
+.nextStepButton {
+  float: right;
+  margin-top: 15px;
+  margin-right: 8px;
+  --background: var(--tigm-button-background-color);
+  --background-activated: var(--tigm-button-activated-color);
+  --color: white;
+  text-transform: none;
+  font-size: 16px;
+  min-width: 160px;
+  width: 160px;
+  min-height: 35px;
+  height: 35px;
+}
 /** Ionic CSS Variables **/
 :root {
   --ion-background-color: #FFFFFF;

@@ -20,6 +20,10 @@ export const enum VoteOptionsPageStrings {
     confirmButton = "Потвърждавам"
 }
 
+export const enum CandidatesPageStrings {
+    nextStep = "Към избори за НС"
+}
+
 export const enum PreviewVoteOptionPageStrings {
     title = "Вие избрахте да гласувате в:", 
     description = "Потвърдете своя избор или се върнете назад.", 
@@ -28,18 +32,21 @@ export const enum PreviewVoteOptionPageStrings {
 
 export const enum PartiesPageStrings {
     preferenceTitle = "Предпочитание (преференция) за кандидат",
-    prevPage = "Предишен",
-    nextPage = "Следващ",
+    prevPage = "Предишна стр.",
+    nextPage = "Следваща стр.",
     buttonPreview = "Преглед",
     noParty = "Моля изберете партия"
 }
 
 export const enum PreviewPageStrings {
-    infoSectionTitle = "Преглед на направените избори",
-    infoSectionDescription = "Прегледайте избора си по-долу. Докоснете бутона „Гласуване“, за да завършите процеса на гласуване и да отпечатате разписката си. Можете да промените всеки от изборите си по-долу, като докоснете „Промени избора“.",
-    previewTitle = "Избори за Народни представители 2021", 
+    sectionTitle = "Преглед на избора",
+    sectionText0 = "Прегледайте избора си",
+    sectionText1 = "Може да го промените, като натиснете “Промени избора”.",
+    sectionText2 = "Натиснете “Гласуване” и изчакайте разписка.", 
+    presidentPlaceholder = "Избори за президент и вицепрезидент",
+    partyPlaceholder = "Избори за народни представители", 
     candidatePlaceholder = "Име на кандидат",
-    noVoteTitle = "Не е направен избор", 
+    notaTitle = "Не е направен избор", 
     changeButton = "Промени избора",
     voteButton = "Гласуване",
 }

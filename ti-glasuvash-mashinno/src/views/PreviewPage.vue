@@ -5,11 +5,13 @@
         <page-header-component></page-header-component>
         <!-- Info -->
         <div class="infoContainer">
-          <ion-label class="infoTitleLabel">{{ infoTitle }}</ion-label>
+          <ion-label class="infoTitleLabel">{{ sectionTitle }}</ion-label>
+          <br /><br />
+          <ion-label class="sectionTextLabel">{{ sectionText0 }}</ion-label>
           <br />
-          <ion-label class="infoDescriptionLabel">{{
-            infoDescription
-          }}</ion-label>
+          <ion-label class="sectionTextLabel">{{ sectionText1 }}</ion-label>
+          <br />
+          <ion-label class="sectionTextLabel">{{ sectionText2 }}</ion-label>
         </div>
         <!-- Preview -->
         <div class="previewContainer">
@@ -17,23 +19,61 @@
             <ion-label class="previewSection">000000035</ion-label>
           </div>
           <div class="previewSeparator"></div>
-          <div class="previewTitleContainer">
-            <ion-label class="previewTitleLabel">{{ previewTitle }}</ion-label>
-          </div>
           <!-- Vote -->
+          <div v-if="hasCandidates()">
+            <div class="previewTitleContainer">
+              <ion-label class="previewTitleLabel">{{
+                presidentPlaceholder
+              }}</ion-label>
+            </div>
+            <div class="candidatesLabelContainer">
+              <div v-if="candidates.id < 10">
+                <ion-label class="partyLabel"
+                  >0{{ candidates.id }}. {{ candidates.party }}</ion-label
+                >
+              </div>
+              <div v-else-if="candidates.id === 24">
+                <ion-label class="partyLabel">{{ candidates.party }}</ion-label>
+              </div>
+              <div v-else>
+                <ion-label class="partyLabel"
+                  >{{ candidates.id }}. {{ candidates.party }}</ion-label
+                >
+              </div>
+              <div>
+                <ion-label class="partyLabel">{{
+                  candidates.president
+                }}</ion-label>
+                <br />
+                <ion-label class="partyLabel">{{
+                  candidates.vice_president
+                }}</ion-label>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="notaContainer">
+              <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
+            </div>
+          </div>
+          <!-- Party -->
+          <div class="previewTitleContainer">
+            <ion-label class="previewTitleLabel">{{
+              partyPlaceholder
+            }}</ion-label>
+          </div>
           <div v-if="hasParty()">
             <div class="voteContainer">
-              <div class="box"></div>
+              <!-- <div class="box"></div> -->
               <div class="partyContainer">
-                <div class="line"></div>
-
+                <!-- <div class="line"></div> -->
                 <div class="partyLabelContainer">
                   <div v-if="party.id < 10">
                     <ion-label class="partyLabel"
                       >0{{ party.id }}. {{ party.name }}</ion-label
                     >
                   </div>
-                  <div v-else-if="party.id === 24">
+                  <div v-else-if="party.id === 37">
                     <ion-label class="partyLabel">{{ party.name }}</ion-label>
                   </div>
                   <div v-else>
@@ -44,13 +84,11 @@
                   <div class="preferenceLabelContainer">
                     <div v-if="hasPreference()">
                       <ion-label class="prefrenceLabel"
-                        >{{ preference?.id }}. {{ infoCandidate }}
+                        >{{ preference?.id }}. {{ candidatePlaceholder }}
                       </ion-label>
                     </div>
-                    <div v-else>
-                      <ion-label class="noVoteLabel">{{
-                        noVoteTitle
-                      }}</ion-label>
+                    <div v-else-if="party.is === 37">
+                      <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
                     </div>
                   </div>
                 </div>
@@ -58,8 +96,8 @@
             </div>
           </div>
           <div v-else>
-            <div class="noVoteContainer">
-              <ion-label class="noVoteLabel">{{ noVoteTitle }}</ion-label>
+            <div class="notaContainer">
+              <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
             </div>
           </div>
         </div>
@@ -73,7 +111,7 @@
           <ion-button
             class="voteButton"
             @click="didPressVote()"
-            :disabled="!hasParty()"
+            :disabled="!hasParty() && !hasCandidates()"
             >{{ voteButtonTitle }}</ion-button
           >
         </div>
@@ -88,6 +126,7 @@ import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { PreviewPageStrings } from "@/utils/LocalizedStrings";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
+import { Candidates } from "@/store/candidates/types";
 import { Party, Preference } from "@/store/parties/types";
 
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
@@ -108,13 +147,17 @@ export default defineComponent({
   },
   data() {
     return {
-      infoTitle: PreviewPageStrings.infoSectionTitle,
-      infoDescription: PreviewPageStrings.infoSectionDescription,
-      infoCandidate: PreviewPageStrings.candidatePlaceholder,
-      previewTitle: PreviewPageStrings.previewTitle,
-      noVoteTitle: PreviewPageStrings.noVoteTitle,
+      sectionTitle: PreviewPageStrings.sectionTitle,
+      sectionText0: PreviewPageStrings.sectionText0,
+      sectionText1: PreviewPageStrings.sectionText1,
+      sectionText2: PreviewPageStrings.sectionText2,
+      presidentPlaceholder: PreviewPageStrings.presidentPlaceholder,
+      partyPlaceholder: PreviewPageStrings.partyPlaceholder,
+      candidatePlaceholder: PreviewPageStrings.candidatePlaceholder,
+      notaTitle: PreviewPageStrings.notaTitle,
       changeButtonTitle: PreviewPageStrings.changeButton,
       voteButtonTitle: PreviewPageStrings.voteButton,
+      candidates: {} as Candidates,
       party: {} as Party,
       preference: {} as Preference,
     };
@@ -124,6 +167,12 @@ export default defineComponent({
   },
   methods: {
     loadSelectedValues() {
+      const candidatesJSON = localStorage.getItem(LocalStorageKeys.candidates);
+      if (candidatesJSON) {
+        const storedCandidates: Candidates = JSON.parse(candidatesJSON);
+        this.candidates = storedCandidates;
+      }
+
       const partyJSON = localStorage.getItem(LocalStorageKeys.party);
       if (partyJSON) {
         const storedParty: Party = JSON.parse(partyJSON);
@@ -136,6 +185,9 @@ export default defineComponent({
         this.preference = storedPreference;
       }
     },
+    hasCandidates() {
+      return this.candidates?.id > 0;
+    },
     hasParty() {
       return this.party?.id > 0;
     },
@@ -143,12 +195,14 @@ export default defineComponent({
       return this.preference?.id > 0;
     },
     resetSelectedValues() {
+      localStorage.removeItem(LocalStorageKeys.selectedVoteOption);
+      localStorage.removeItem(LocalStorageKeys.candidates);
       localStorage.removeItem(LocalStorageKeys.party);
       localStorage.removeItem(LocalStorageKeys.preference);
     },
     didPressChange() {
       this.resetSelectedValues();
-      this.$router.replace("/parties");
+      this.$router.replace("/vote-options");
     },
     didPressVote() {
       this.resetSelectedValues();
@@ -174,7 +228,7 @@ export default defineComponent({
   font-weight: 600;
 }
 
-.infoDescriptionLabel {
+.sectionTextLabel {
   font-size: 16px;
 }
 
@@ -208,7 +262,7 @@ export default defineComponent({
 }
 
 .previewTitleLabel {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
 }
 
@@ -217,18 +271,18 @@ export default defineComponent({
   flex-direction: row;
 }
 
-.noVoteContainer {
+.notaContainer {
   margin: 16px auto;
   text-align: center;
 }
 
-.noVoteLabel {
+.notaLabel {
   font-size: 16px;
 }
 
 .box {
   margin-top: 8px;
-  margin-left: 24px;
+  margin-left: 25px;
   min-width: 18px;
   width: 18px;
   height: 18px;
@@ -237,8 +291,11 @@ export default defineComponent({
 }
 
 .partyContainer {
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
+  margin: auto;
+  text-align: center;
+  margin-bottom: 16px;
 }
 
 .line {
@@ -248,6 +305,12 @@ export default defineComponent({
   width: 15px;
   border-left: 1px solid var(--tigm-border-color);
   border-bottom: 1px solid var(--tigm-border-color);
+}
+
+.candidatesLabelContainer {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 16px;
 }
 
 .partyLabelContainer {

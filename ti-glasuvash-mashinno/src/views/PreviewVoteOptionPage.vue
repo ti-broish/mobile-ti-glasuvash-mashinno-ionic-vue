@@ -84,7 +84,11 @@ export default defineComponent({
       this.$router.replace("/vote-options");
     },
     handleConfirmButton() {
-      this.$router.replace("/presidents");
+      if (this.selectedVoteOptionText == VoteOptionsPageStrings.option3) {
+        this.$router.replace("/parties");
+      } else {
+        this.$router.replace("/candidates");
+      }
     },
   },
 });
