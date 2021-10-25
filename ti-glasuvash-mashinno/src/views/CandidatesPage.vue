@@ -86,7 +86,7 @@ export default defineComponent({
       itemsPerPage: 13,
       prevPageTitle: PartiesPageStrings.prevPage,
       nextPageTitle: PartiesPageStrings.nextPage,
-      nextStepButtonTitle: CandidatesPageStrings.nextStep,
+      nextStepButtonTitle: "",
       notaId: -1,
     };
   },
@@ -103,7 +103,14 @@ export default defineComponent({
       return storedVoteOption ?? ""
     }, 
     loadSelectedVoteOption() {
-      this.title = this.getStoredVoteOption();
+      const storedVoteOption = this.getStoredVoteOption();
+      this.title = storedVoteOption;
+
+      if (storedVoteOption == VoteOptionsPageStrings.option2) {
+        this.nextStepButtonTitle = PartiesPageStrings.buttonPreview;
+      } else {
+        this.nextStepButtonTitle = CandidatesPageStrings.nextStep;
+      }
     },
     loadCandidates() {
       const builder = new CandidatesBuilder();

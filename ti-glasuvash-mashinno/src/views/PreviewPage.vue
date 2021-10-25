@@ -124,7 +124,10 @@
 import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import { PreviewPageStrings } from "@/utils/LocalizedStrings";
+import {
+  PreviewPageStrings,
+  VoteOptionsPageStrings,
+} from "@/utils/LocalizedStrings";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
 import { Candidates } from "@/store/candidates/types";
 import { Party, Preference } from "@/store/parties/types";
@@ -195,16 +198,32 @@ export default defineComponent({
       return this.preference?.id > 0;
     },
     resetSelectedValues() {
-      localStorage.removeItem(LocalStorageKeys.selectedVoteOption);
       localStorage.removeItem(LocalStorageKeys.candidates);
       localStorage.removeItem(LocalStorageKeys.party);
       localStorage.removeItem(LocalStorageKeys.preference);
     },
+    getStoredVoteOption() {
+      const storedVoteOption = localStorage.getItem(
+        LocalStorageKeys.selectedVoteOption
+      );
+
+      return storedVoteOption ?? "";
+    },
     didPressChange() {
       this.resetSelectedValues();
-      this.$router.replace("/vote-options");
+      const storedVoteOption = this.getStoredVoteOption();
+
+      if (
+        storedVoteOption == VoteOptionsPageStrings.option1 ||
+        storedVoteOption == VoteOptionsPageStrings.option2
+      ) {
+        this.$router.replace("/candidates");
+      } else {
+        this.$router.replace("/parties");
+      }
     },
     didPressVote() {
+      localStorage.removeItem(LocalStorageKeys.selectedVoteOption);
       this.resetSelectedValues();
       this.$router.replace("/vote");
     },
