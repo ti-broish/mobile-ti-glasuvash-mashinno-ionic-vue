@@ -108,7 +108,8 @@ export default defineComponent({
 }
 
 .ionItem {
-  --padding-start: 8px;
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
 }
 
 .ionItemSelected {
@@ -126,11 +127,11 @@ export default defineComponent({
 }
 
 .partyItem {
-  margin-top: 16px;
+  margin-top: 8px;
   margin-bottom: 8px;
   padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
+  padding-right: 4px;
+  font-size: 13px;
   font-weight: 600;
   min-width: 50%;
   width: 50%;
@@ -138,11 +139,11 @@ export default defineComponent({
 }
 
 .nameItem {
-  margin-top: 16px;
+  margin-top: 8px;
   margin-bottom: 8px;
-  padding-left: 8px;
+  padding-left: 4px;
   padding-right: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   min-width: 40%;
   width: 40%;
