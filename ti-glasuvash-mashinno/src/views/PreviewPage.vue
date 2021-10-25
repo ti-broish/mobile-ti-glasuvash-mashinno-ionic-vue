@@ -29,12 +29,12 @@
           </div>
           <div v-if="hasCandidates()">
             <div class="candidatesLabelContainer">
-              <div v-if="candidates.id < 10">
+              <!-- <div v-if="candidates.id < 10">
                 <ion-label class="partyLabel"
                   >0{{ candidates.id }}. {{ candidates.party }}</ion-label
                 >
-              </div>
-              <div v-else-if="candidates.id === 24">
+              </div> -->
+              <div v-if="candidates.id === 24">
                 <ion-label class="partyLabel">{{ candidates.party }}</ion-label>
               </div>
               <div v-else>
@@ -72,12 +72,12 @@
               <div class="partyContainer">
                 <!-- <div class="line"></div> -->
                 <div class="partyLabelContainer">
-                  <div v-if="party.id < 10">
+                  <!-- <div v-if="party.id < 10">
                     <ion-label class="partyLabel"
                       >0{{ party.id }}. {{ party.name }}</ion-label
                     >
-                  </div>
-                  <div v-else-if="party.id === 37">
+                  </div> -->
+                  <div v-if="party.id === 37">
                     <ion-label class="partyLabel">{{ party.name }}</ion-label>
                   </div>
                   <div v-else>

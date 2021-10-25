@@ -10,12 +10,12 @@
       lines="none"
     >
       <div>
-        <div v-if="party.id < 10">
+        <!-- <div v-if="party.id < 10">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }"
             >0{{ party?.id }}
           </span>
-        </div>
-        <div v-else-if="party.id === notaId">
+        </div> -->
+        <div v-if="party.id === notaId">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
           </span>
         </div>

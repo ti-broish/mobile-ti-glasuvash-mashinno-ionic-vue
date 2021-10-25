@@ -15,12 +15,12 @@
         >{{ candidates?.party }}</span
       >
       <div class="idItemContainer">
-        <div v-if="candidates.id < 10">
+        <!-- <div v-if="candidates.id < 10">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }"
             >0{{ candidates?.id }}
           </span>
-        </div>
-        <div v-else-if="candidates.id === notaId">
+        </div> -->
+        <div v-if="candidates.id === notaId">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
           </span>
         </div>
