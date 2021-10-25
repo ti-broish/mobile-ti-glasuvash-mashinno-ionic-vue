@@ -20,10 +20,12 @@
           </div>
           <div class="previewSeparator"></div>
           <!-- Vote -->
-          <div class="previewTitleContainer">
-            <ion-label class="previewTitleLabel">{{
-              presidentPlaceholder
-            }}</ion-label>
+          <div v-if="showCandidatesSection()">
+            <div class="previewTitleContainer">
+              <ion-label class="previewTitleLabel">{{
+                presidentPlaceholder
+              }}</ion-label>
+            </div>
           </div>
           <div v-if="hasCandidates()">
             <div class="candidatesLabelContainer">
@@ -51,16 +53,18 @@
               </div>
             </div>
           </div>
-          <div v-else>
+          <div v-else-if="showCandidatesSection()">
             <div class="notaContainer">
               <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
             </div>
           </div>
           <!-- Party -->
-          <div class="previewTitleContainer">
-            <ion-label class="previewTitleLabel">{{
-              partyPlaceholder
-            }}</ion-label>
+          <div v-if="showPartySection()">
+            <div class="previewTitleContainer">
+              <ion-label class="previewTitleLabel">{{
+                partyPlaceholder
+              }}</ion-label>
+            </div>
           </div>
           <div v-if="hasParty()">
             <div class="voteContainer">
@@ -95,7 +99,7 @@
               </div>
             </div>
           </div>
-          <div v-else>
+          <div v-else-if="showPartySection()">
             <div class="notaContainer">
               <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
             </div>
@@ -169,6 +173,9 @@ export default defineComponent({
     this.loadSelectedValues();
   },
   methods: {
+    getContent() {
+      return document.querySelector('ion-content');
+    }, 
     loadSelectedValues() {
       const candidatesJSON = localStorage.getItem(LocalStorageKeys.candidates);
       if (candidatesJSON) {
@@ -187,6 +194,8 @@ export default defineComponent({
         const storedPreference: Preference = JSON.parse(preferenceJSON);
         this.preference = storedPreference;
       }
+
+      this.getContent()?.scrollToBottom(1500);
     },
     hasCandidates() {
       return this.candidates?.id > 0;
@@ -196,6 +205,18 @@ export default defineComponent({
     },
     hasPreference() {
       return this.preference?.id > 0;
+    },
+    showCandidatesSection() {
+      return (
+        this.getStoredVoteOption() == VoteOptionsPageStrings.option1 ||
+        this.getStoredVoteOption() == VoteOptionsPageStrings.option2
+      );
+    },
+    showPartySection() {
+      return (
+        this.getStoredVoteOption() == VoteOptionsPageStrings.option1 ||
+        this.getStoredVoteOption() == VoteOptionsPageStrings.option3
+      );
     },
     resetSelectedValues() {
       localStorage.removeItem(LocalStorageKeys.candidates);
@@ -211,12 +232,8 @@ export default defineComponent({
     },
     didPressChange() {
       this.resetSelectedValues();
-      const storedVoteOption = this.getStoredVoteOption();
 
-      if (
-        storedVoteOption == VoteOptionsPageStrings.option1 ||
-        storedVoteOption == VoteOptionsPageStrings.option2
-      ) {
+      if (this.showCandidatesSection()) {
         this.$router.replace("/candidates");
       } else {
         this.$router.replace("/parties");
