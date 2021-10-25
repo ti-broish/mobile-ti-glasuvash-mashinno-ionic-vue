@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content>
+    <ion-content ref="content">
       <div class="container">
         <page-header-component></page-header-component>
         <!-- Info -->
@@ -126,7 +126,7 @@
 
 <script lang="ts">
 import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import {
   PreviewPageStrings,
@@ -149,8 +149,13 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const content = ref();
 
-    return { router };
+    const scrollToBottom = () => {
+      content.value.$el.scrollToBottom(300);
+    };
+
+    return { router, content, scrollToBottom };
   },
   data() {
     return {
@@ -173,9 +178,6 @@ export default defineComponent({
     this.loadSelectedValues();
   },
   methods: {
-    getContent() {
-      return document.querySelector('ion-content');
-    }, 
     loadSelectedValues() {
       const candidatesJSON = localStorage.getItem(LocalStorageKeys.candidates);
       if (candidatesJSON) {
@@ -195,7 +197,7 @@ export default defineComponent({
         this.preference = storedPreference;
       }
 
-      this.getContent()?.scrollToBottom(1500);
+      this.scrollToBottom();
     },
     hasCandidates() {
       return this.candidates?.id > 0;
@@ -270,9 +272,8 @@ export default defineComponent({
 
 .previewContainer {
   margin: 16px auto;
-  width: 80%;
   border: 4px solid var(--tigm-border-color);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .previewSection {
