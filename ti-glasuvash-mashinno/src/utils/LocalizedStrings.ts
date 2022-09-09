@@ -1,5 +1,5 @@
 export const enum HomePageStrings {
-    title = "ИЗБОРИ 14.11.2021",
+    title = "ИЗБОРИ 02.10.2022",
     subtitle = "Добре дошли",
     hint = "Поставете картата в слота за четене",
     cardButtonTitle = "Поставете карта"
@@ -8,7 +8,7 @@ export const enum HomePageStrings {
 export const enum PageHeaderStrings {
     electionRegion = "Район",
     section = "Секция",
-    title = "ИЗБОРИ 14.11.2021",
+    title = "ИЗБОРИ 02.10.2022",
 }
 
 export const enum VoteOptionsPageStrings {
