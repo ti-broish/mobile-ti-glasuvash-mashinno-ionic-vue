@@ -42,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/VotePage.vue')
   },
   {
+    path: '/vote-confirmation',
+    name: 'Vote confirmation',
+    component: () => import('@/views/VoteConfirmationPage.vue')
+  },
+  {
     path: '/remove-card',
     name: 'Remove card',
     component: () => import('@/views/RemoveCardPage.vue')

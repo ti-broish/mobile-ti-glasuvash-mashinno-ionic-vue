@@ -43,7 +43,7 @@ export default defineComponent({
     countdown() {
       const timeinterval = setInterval(() => {
         clearInterval(timeinterval);
-        this.$router.replace("/remove-card");
+        this.$router.replace("/vote-confirmation");
       }, 3000);
     },
   },
