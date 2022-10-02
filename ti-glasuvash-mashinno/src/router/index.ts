@@ -12,6 +12,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/HomePage.vue')
   },
   {
+    path: '/vote-options',
+    name: 'Vote options',
+    component: () => import('@/views/VoteOptionsPage.vue')
+  },
+  {
+    path: '/preview-vote-option',
+    name: 'Preview vote option',
+    component: () => import('@/views/PreviewVoteOptionPage.vue')
+  },
+  {
+    path: '/candidates',
+    name: 'Candidates',
+    component: () => import('@/views/CandidatesPage.vue')
+  },
+  {
     path: '/parties',
     name: 'Parties',
     component: () => import('@/views/PartiesPage.vue')
@@ -25,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/vote',
     name: 'Vote',
     component: () => import('@/views/VotePage.vue')
+  },
+  {
+    path: '/vote-confirmation',
+    name: 'Vote confirmation',
+    component: () => import('@/views/VoteConfirmationPage.vue')
   },
   {
     path: '/remove-card',

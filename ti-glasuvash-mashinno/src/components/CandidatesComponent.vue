@@ -6,16 +6,21 @@
     <ion-item
       class="ionItem"
       v-bind:class="{ ionItemSelected: isSelected() }"
-      @click="didSelectParty()"
+      @click="didSelectCandidates()"
       lines="none"
     >
-      <div>
-        <!-- <div v-if="party.id < 10">
+      <span
+        class="partyItem"
+        v-bind:class="{ nameItemSelected: isSelected() }"
+        >{{ candidates?.party }}</span
+      >
+      <div class="idItemContainer">
+        <!-- <div v-if="candidates.id < 10">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }"
-            >0{{ party?.id }}
+            >0{{ candidates?.id }}
           </span>
         </div> -->
-        <div v-if="party.id === notaId">
+        <div v-if="candidates.id === notaId">
           <span class="idItem" v-bind:class="{ idItemSelected: isSelected() }">
           </span>
         </div>
@@ -23,18 +28,16 @@
           <span
             class="idItem"
             v-bind:class="{ idItemSelected: isSelected() }"
-            >{{ party?.id }}</span
+            >{{ candidates?.id }}</span
           >
         </div>
         <selected-box-component
-          :pHasValue="selectedParty?.id !== notaId"
+          :pHasValue="selectedCandidates?.id !== notaId"
           v-show="isSelected()"
         ></selected-box-component>
       </div>
-      <span
-        class="nameItem"
-        v-bind:class="{ nameItemSelected: isSelected() }"
-        >{{ party?.name }}</span
+      <span class="nameItem" v-bind:class="{ nameItemSelected: isSelected() }"
+        >{{ candidates?.president }}<br />{{ candidates?.vice_president }}</span
       >
     </ion-item>
   </div>
@@ -47,14 +50,14 @@ import { defineComponent } from "vue";
 import SelectedBoxComponent from "@/components/SelectedBoxComponent.vue";
 
 export default defineComponent({
-  name: "PartyComponent",
+  name: "CandidatesComponent",
   props: {
-    pParty: Object,
-    pSelectedParty: Object, 
+    pCandidates: Object,
+    pSelectedCandidates: Object,
     pNotaId: Number, // NOTA - None of the above
   },
   emits: {
-    "select-party": null,
+    "select-candidates": null,
   },
   components: {
     IonItem,
@@ -62,39 +65,39 @@ export default defineComponent({
   },
   data() {
     return {
-      party: this.pParty ?? null,
-      selectedParty: this.pSelectedParty ?? null,
+      candidates: this.pCandidates ?? null,
+      selectedCandidates: this.pSelectedCandidates ?? null,
       notaId: this.pNotaId ?? -1
     };
   },
   methods: {
     reload() {
-      this.selectedParty = null;
+      this.selectedCandidates = null;
 
-      if (this.party?.id === this.pSelectedParty?.id) {
-        this.selectedParty = this.party;
+      if (this.candidates?.id === this.pSelectedCandidates?.id) {
+        this.selectedCandidates = this.candidates;
       }
     },
     isSelected() {
-      return this.party?.id === this.selectedParty?.id;
+      return this.candidates?.id === this.pSelectedCandidates?.id;
     },
-    didSelectParty() {
-      if (this.party?.id === this.selectedParty?.id) {
-        this.$emit("select-party", null);
+    didSelectCandidates() {
+      if (this.candidates?.id === this.pSelectedCandidates?.id) {
+        this.$emit("select-candidates", null);
       } else {
-        this.$emit("select-party", this.party);
+        this.$emit("select-candidates", this.candidates);
       }
     },
   },
   watch: {
-    pSelectedParty: "reload",
+    pSelectedCandidates: "reload",
   },
 });
 </script>
 
 <style scoped>
 .componentContainer {
-  /* border-right: 1px solid var(--tigm-border-color); */
+  margin: auto;
   border-bottom: 1px solid var(--tigm-border-color);
   min-height: 60px;
   background: white;
@@ -105,7 +108,8 @@ export default defineComponent({
 }
 
 .ionItem {
-  --padding-start: 8px;
+  --padding-start: 0px;
+  --inner-padding-end: 0px;
 }
 
 .ionItemSelected {
@@ -117,13 +121,33 @@ export default defineComponent({
   border: 2px solid white;
 }
 
-.nameItem {
-  margin-top: 16px;
+.idItemContainer {
+  min-width: 10%;
+  width: 10%;
+}
+
+.partyItem {
+  margin-top: 8px;
   margin-bottom: 8px;
   padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
+  padding-right: 4px;
+  font-size: 13px;
   font-weight: 600;
+  min-width: 50%;
+  width: 50%;
+  text-align: left;
+}
+
+.nameItem {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+  padding-right: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 40%;
+  width: 40%;
+  text-align: right;
 }
 
 .nameItemSelected {

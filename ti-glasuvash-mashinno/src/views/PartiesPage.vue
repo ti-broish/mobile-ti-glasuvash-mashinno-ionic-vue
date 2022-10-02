@@ -10,6 +10,7 @@
               <party-component
                 :pParty="party"
                 :pSelectedParty="selectedParty"
+                :pNotaId="notaId"
                 @select-party="didSelectParty($event)"
               ></party-component>
             </div>
@@ -36,14 +37,14 @@
               :pPreferences="preferences"
               :pSelectedPreference="selectedPreference"
               @select-preference="didSelectPreference($event)"
-              v-show="selectedParty?.id > 0 && selectedParty?.id < 24"
+              v-show="selectedParty?.id > 0 && selectedParty?.id < notaId"
             ></preferences-component>
           </div>
         </div>
         <!-- footer -->
         <div class="pageFooter">
-          <ion-button class="previewButton" @click="didPressPreview()">{{
-            previewButtonTitle
+          <ion-button class="nextStepButton" @click="handleNextStepButton()">{{
+            nextStepButtonTitle
           }}</ion-button>
         </div>
       </div>
@@ -83,7 +84,7 @@ export default defineComponent({
     return {
       prevPageTitle: PartiesPageStrings.prevPage,
       nextPageTitle: PartiesPageStrings.nextPage,
-      previewButtonTitle: PartiesPageStrings.buttonPreview,
+      nextStepButtonTitle: PartiesPageStrings.buttonPreview,
       parties: [] as Array<Party>,
       preferences: [] as Array<Preference>,
       selectedParty: {} as Party,
@@ -91,6 +92,7 @@ export default defineComponent({
       page: 0,
       hasMorePages: true,
       itemsPerPage: 13,
+      notaId: -1,
     };
   },
   mounted() {
@@ -101,6 +103,7 @@ export default defineComponent({
     loadParties() {
       const builder = new PartiesBuilder();
       this.parties = builder.makeParties();
+      this.notaId = this.parties[this.parties.length - 1].id;
       console.log("parties: ", this.parties);
     },
     loadPreferences() {
@@ -147,7 +150,7 @@ export default defineComponent({
     didPressNextPage() {
       this.page += 1;
     },
-    didPressPreview() {
+    handleNextStepButton() {
       localStorage.setItem(
         LocalStorageKeys.party,
         JSON.stringify(this.selectedParty)
@@ -172,9 +175,10 @@ export default defineComponent({
 .partiesContainer {
   flex-direction: row;
   display: flex;
-  border-left: 2px solid var(--tigm-border-color); 
+  border-left: 2px solid var(--tigm-border-color);
   border-top: 2px solid var(--tigm-border-color);
   border-bottom: 2px solid var(--tigm-border-color);
+  min-height: 100vh;
 }
 
 .partiesList {
@@ -187,54 +191,10 @@ export default defineComponent({
   height: 60px;
 }
 
-.pageButton {
-  margin-top: 15px;
-  margin-left: 8px;
-  --background-activated: var(--tigm-button-activated-color);
-  --border-style: solid;
-  --border-width: 2px;
-  --border-color: var(--tigm-border-color);
-  --border-radius: 4px;
-  --color: var(--tigm-button-background-color);
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 8px;
-  --padding-bottom: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: none;
-  min-height: 30px;
-  height: 30px;
-}
-
-.nextPageButton {
-  float: right;
-  margin-right: 8px;
-}
-
 .preferencesContainer {
   width: 40%;
   text-align: center;
   border-left: 2px solid var(--tigm-border-color);
   border-right: 2px solid var(--tigm-border-color);
-}
-
-.pageFooter {
-  height: 80px;
-}
-
-.previewButton {
-  float: right;
-  margin-top: 15px;
-  margin-right: 8px;
-  --background: var(--tigm-button-background-color);
-  --background-activated: var(--tigm-button-activated-color);
-  --color: white;
-  text-transform: none;
-  font-size: 16px;
-  min-width: 160px;
-  width: 160px;
-  min-height: 35px;
-  height: 35px;
 }
 </style>

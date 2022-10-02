@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content>
       <div class="contentContainer">
-        <frame-component :pTitle="title" :pSubtitle="subtitle">
+        <frame-component :pTitle="title" :pSubtitle="subtitle" :pHint="hint">
         </frame-component>
         <div class="cardButtonContainer">
           <ion-button class="cardButton" @click="() => router.replace('/parties')">
@@ -37,8 +37,9 @@ export default defineComponent({
   },
   data() {
     return {
-      title: HomePageStrings.title,
-      subtitle: HomePageStrings.subtitle,
+      title: HomePageStrings.title, 
+      subtitle: HomePageStrings.subtitle, 
+      hint: HomePageStrings.hint, 
       cardButtonTitle: HomePageStrings.cardButtonTitle,
     };
   },
