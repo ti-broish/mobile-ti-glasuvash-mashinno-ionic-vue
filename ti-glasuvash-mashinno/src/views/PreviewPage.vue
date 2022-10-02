@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content ref="content">
       <div class="container">
-        <page-header-component></page-header-component>
+        <page-header-component :pTitle="title"></page-header-component>
         <!-- Info -->
         <div class="infoContainer">
           <ion-label class="infoTitleLabel">{{ sectionTitle }}</ion-label>
@@ -129,6 +129,7 @@ import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import {
+  HomePageStrings, 
   PreviewPageStrings,
   VoteOptionsPageStrings,
 } from "@/utils/LocalizedStrings";
@@ -159,6 +160,7 @@ export default defineComponent({
   },
   data() {
     return {
+      title: HomePageStrings.title,
       sectionTitle: PreviewPageStrings.sectionTitle,
       sectionText0: PreviewPageStrings.sectionText0,
       sectionText1: PreviewPageStrings.sectionText1,
@@ -230,7 +232,7 @@ export default defineComponent({
         LocalStorageKeys.selectedVoteOption
       );
 
-      return storedVoteOption ?? "";
+      return storedVoteOption ?? VoteOptionsPageStrings.option3;
     },
     didPressChange() {
       this.resetSelectedValues();
@@ -331,7 +333,7 @@ export default defineComponent({
   /* display: flex;
   flex-direction: row; */
   margin: auto;
-  text-align: center;
+  text-align: left;
   margin-bottom: 16px;
 }
 

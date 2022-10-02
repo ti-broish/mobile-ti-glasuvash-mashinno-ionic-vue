@@ -1,14 +1,14 @@
 export const enum HomePageStrings {
-    title = "ИЗБОРИ 14.11.2021",
+    title = "Избори за Народно събрание 2 октомври 2022г.",
     subtitle = "Добре дошли",
-    hint = "Поставете картата в слота за четене",
+    hint = "Поставете картата в долния отвор на машината.",
     cardButtonTitle = "Поставете карта"
 }
 
 export const enum PageHeaderStrings {
     electionRegion = "Район",
     section = "Секция",
-    title = "ИЗБОРИ 14.11.2021",
+    title = "Избори за народни представители",
 }
 
 export const enum VoteOptionsPageStrings {
@@ -39,7 +39,7 @@ export const enum PartiesPageStrings {
 }
 
 export const enum PreviewPageStrings {
-    sectionTitle = "Преглед на избора",
+    sectionTitle = "Преглед на направените избори",
     sectionText0 = "Прегледайте избора си",
     sectionText1 = "Може да го промените, като натиснете “Промени избора”.",
     sectionText2 = "Натиснете “Гласуване” и изчакайте разписка.", 
@@ -55,6 +55,11 @@ export const enum VotePageStrings {
     title = "Благодаря Ви!",
     subtitle = "Отпечатване на разписката",
     waiting = "Моля изчакайте ..."
+}
+
+export const enum VoteConfirmationPageStrings {
+    title = "Разписката е готова",
+    subtitle = "Моля, вземете разписката от Вашето гласуване и я поставете в специална кутия за разписки за машинно гласуване, намираща се на масата пред членовете на СИК."
 }
 
 export const enum RemoveCardPageStrings {

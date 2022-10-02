@@ -3,7 +3,7 @@
     <ion-label class="frameTitleLabel">{{ pTitle }}</ion-label>
   </div>
   <div class="frameSubtitleContainer">
-    <p>{{ pSubtitle }}</p>
+    <ion-label class="frameSubtitleLabel">{{ pSubtitle }}</ion-label>
     <p>{{ pHint }}</p>
   </div>
   <div class="frameContainer">
@@ -48,12 +48,17 @@ export default defineComponent({
   margin: 32px auto;
   width: 100%;
   max-width: 1024px;
+  text-align: center;
 }
 
 .frameSubtitleContainer p {
   font-size: 16px;
   line-height: 22px;
   text-align: center;
+}
+
+.frameSubtitleLabel {
+  font-weight: bold;
 }
 
 .frameContainer {
