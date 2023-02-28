@@ -42,7 +42,7 @@ export default defineComponent({
           if (router.currentRoute.value.path === "/preview") {
             router.replace("/candidates");
           }
-        } else if (storedVoteOption == VoteOptionsPageStrings.option2) {
+        } else if (storedVoteOption == VoteOptionsPageStrings.option3) {
           if (router.currentRoute.value.path === "/preview") {
             router.replace("/parties");
           }

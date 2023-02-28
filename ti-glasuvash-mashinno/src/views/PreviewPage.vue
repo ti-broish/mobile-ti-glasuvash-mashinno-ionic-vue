@@ -140,7 +140,7 @@ import { Party, Preference } from "@/store/parties/types";
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 
 export default defineComponent({
-  name: "Preview",
+  name: "Preview-Component",
   components: {
     IonContent,
     IonPage,

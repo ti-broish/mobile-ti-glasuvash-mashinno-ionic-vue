@@ -66,7 +66,7 @@ import PartyComponent from "@/components/PartyComponent.vue";
 import PreferencesComponent from "@/components/PreferencesComponent.vue";
 
 export default defineComponent({
-  name: "Parties",
+  name: "Parties-Component",
   components: {
     IonContent,
     IonPage,

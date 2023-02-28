@@ -23,7 +23,7 @@ import { HomePageStrings } from "@/utils/LocalizedStrings";
 import FrameComponent from "@/components/FrameComponent.vue";
 
 export default defineComponent({
-  name: "Home",
+  name: "Home-Component",
   components: {
     IonContent,
     IonPage,
