@@ -20,7 +20,7 @@ import { VotePageStrings } from "@/utils/LocalizedStrings";
 import FrameComponent from "@/components/FrameComponent.vue";
 
 export default defineComponent({
-  name: "Vote",
+  name: "Vote-Component",
   components: {
     IonContent,
     IonPage,

@@ -63,7 +63,7 @@ import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 import CandidatesComponent from "@/components/CandidatesComponent.vue";
 
 export default defineComponent({
-  name: "Candidates",
+  name: "Candidates-Component",
   components: {
     IonContent,
     IonPage,
