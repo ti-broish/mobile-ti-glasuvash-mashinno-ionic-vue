@@ -2,7 +2,8 @@ export const enum HomePageStrings {
     title = "Избори за Народно събрание 2 април 2023г.",
     subtitle = "Добре дошли",
     hint = "Поставете картата в долния отвор на машината.",
-    cardButtonTitle = "Поставете карта"
+    cardButtonTitle = "Поставете карта", 
+    privacyNotice = "Декларация за поверителност"
 }
 
 export const enum PageHeaderStrings {
