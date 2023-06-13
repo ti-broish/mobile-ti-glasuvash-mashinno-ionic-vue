@@ -11,6 +11,13 @@
         </div>
       </div>
     </ion-content>
+    <ion-footer>
+      <ion-toolbar>
+        <div style="text-align: center; height:64px;">
+          <a style="color: #262629;" href="https://tibroish.bg/privacy-notice">{{ privacyNotice }}</a>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -40,7 +47,8 @@ export default defineComponent({
       title: HomePageStrings.title, 
       subtitle: HomePageStrings.subtitle, 
       hint: HomePageStrings.hint, 
-      cardButtonTitle: HomePageStrings.cardButtonTitle,
+      cardButtonTitle: HomePageStrings.cardButtonTitle, 
+      privacyNotice: HomePageStrings.privacyNotice
     };
   },
 });
