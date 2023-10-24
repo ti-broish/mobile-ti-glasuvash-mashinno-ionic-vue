@@ -26,7 +26,7 @@
                 class="pageButton nextPageButton"
                 fill="clear"
                 @click="didPressNextPage()"
-                v-show="hasMorePages > 0"
+                v-show=hasMorePages > 0
                 >{{ nextPageTitle }}</ion-button
               >
             </div>
@@ -91,7 +91,7 @@ export default defineComponent({
       selectedPreference: {} as Preference | null,
       page: 0,
       hasMorePages: true,
-      itemsPerPage: 13,
+      itemsPerPage: 14,
       notaId: -1,
     };
   },

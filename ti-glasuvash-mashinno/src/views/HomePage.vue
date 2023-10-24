@@ -5,7 +5,7 @@
         <frame-component :pTitle="title" :pSubtitle="subtitle" :pHint="hint">
         </frame-component>
         <div class="cardButtonContainer">
-          <ion-button class="cardButton" @click="() => router.replace('/parties')">
+          <ion-button class="cardButton" @click="() => router.replace('/vote-options')">
             {{ cardButtonTitle }}
           </ion-button>
         </div>

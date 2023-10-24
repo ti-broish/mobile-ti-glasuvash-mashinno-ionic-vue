@@ -44,11 +44,11 @@
               </div>
               <div>
                 <ion-label class="partyLabel">{{
-                  candidates.president
+                  candidates.first
                 }}</ion-label>
                 <br />
                 <ion-label class="partyLabel">{{
-                  candidates.vice_president
+                  candidates.second
                 }}</ion-label>
               </div>
             </div>
@@ -91,7 +91,7 @@
                         >{{ preference?.id }}. {{ candidatePlaceholder }}
                       </ion-label>
                     </div>
-                    <div v-else-if="party.is === 37">
+                    <div v-else-if="party.id === 68">
                       <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
                     </div>
                   </div>

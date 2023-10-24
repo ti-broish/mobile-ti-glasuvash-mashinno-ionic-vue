@@ -1,7 +1,7 @@
 export const enum HomePageStrings {
-    title = "Избори за Народно събрание 2 април 2023г.",
-    subtitle = "Добре дошли",
-    hint = "Поставете картата в долния отвор на машината.",
+    title = "Добре дошли в Избори 29.10.2023",
+    subtitle = "",
+    hint = "Поставете картата в слота за четене",
     cardButtonTitle = "Поставете карта", 
     privacyNotice = "Декларация за поверителност"
 }
@@ -9,15 +9,17 @@ export const enum HomePageStrings {
 export const enum PageHeaderStrings {
     electionRegion = "Район",
     section = "Секция",
-    title = "Избори за народни представители",
+    title = "Избори за общински съветници",
 }
 
 export const enum VoteOptionsPageStrings {
     title = "Посочете в кои избори ще гласувате", 
     subtitle = "Натиснете и потвърдете", 
-    option1 = "ИЗБОРИ ЗА ПРЕЗИДЕНТ И ВИЦЕПРЕЗИДЕНТ И ЗА НАРОДНИ ПРЕДСТАВИТЕЛИ", 
-    option2 = "ИЗБОРИ ЗА ПРЕЗИДЕНТ И ВИЦЕПРЕЗИДЕНТ", 
-    option3 = "ИЗБОРИ ЗА НАРОДНИ ПРЕДСТАВИТЕЛИ", 
+    selectAll = "Избери всички", 
+    option1 = "ИЗБОРИ ЗА ОБЩИНСКИ СЪВЕТНИЦИ", 
+    option2 = "ИЗБОРИ ЗА КМЕТ НА ОБЩИНА", 
+    option3 = "ИЗБОРИ ЗА КМЕТ НА РАЙОН",
+    option4 = "ИЗБОРИ ЗА КМЕТ НА КМЕТСТВО",  
     confirmButton = "Потвърждавам"
 }
 
@@ -26,9 +28,11 @@ export const enum CandidatesPageStrings {
 }
 
 export const enum PreviewVoteOptionPageStrings {
-    title = "Вие избрахте да гласувате в:", 
+    title = "Потвърдете избора си", 
+    subtitle = "Вие избрахте да гласувате в", 
     description = "Потвърдете своя избор или се върнете назад.", 
-    previousButton = "Назад"
+    warningText = "Веднъж потвърдили избора си тук, той повече няма да може да бъде променян.",
+    previousButton = "Връщане назад"
 }
 
 export const enum PartiesPageStrings {
