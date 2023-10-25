@@ -51,6 +51,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Remove card',
     component: () => import('@/views/RemoveCardPage.vue')
   },
+  {
+    path: '/empty-vote',
+    name: 'Empty vote',
+    component: () => import('@/views/EmptyVotePage.vue')
+  },
 ]
 
 const router = createRouter({

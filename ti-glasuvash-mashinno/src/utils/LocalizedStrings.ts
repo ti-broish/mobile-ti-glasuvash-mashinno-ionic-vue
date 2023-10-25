@@ -71,3 +71,9 @@ export const enum VoteConfirmationPageStrings {
 export const enum RemoveCardPageStrings {
     title = "Извадете картата, за да продължите."
 }
+
+export const enum EmptyVotePageStrings {
+    title = "Не сте направили своя избор", 
+    text = "Изберете партия, коалиция, независим кандидат или \"Не подкрепям никого\"",
+    doneButton = "Добре"
+}

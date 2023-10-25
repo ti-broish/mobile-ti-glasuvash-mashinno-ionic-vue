@@ -109,6 +109,14 @@ export default defineComponent({
         const voteOption = this.voteOptions.filter(option => option.filled == false)[0];
         if (voteOption) {
           this.currentVoteOption = voteOption;
+
+          const data = voteOption.data;
+          if (data) {
+            this.selectedCandidates = data;
+            this.saveVoteOptionData(data);
+          }
+
+          this.updateNextStepButtonTitle();
         } else {
           // TODO: - implement
         }
@@ -138,20 +146,22 @@ export default defineComponent({
 
       return result;
     },
-    didSelectCandidates(candidates: Candidates) {
+    saveVoteOptionData(candidates: Candidates) {
       const option = this.currentVoteOption as VoteOptionData;
       if (option) {
         option.data = candidates;
         option.filled = true;
 
         localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
-        console.log("" 
-          + LocalStorageKeys.selectedVoteOptions 
-          + ": " + this.voteOptions.map(option => option.name) 
+        console.log(""
+          + LocalStorageKeys.selectedVoteOptions
+          + ": " + this.voteOptions.map(option => option.name)
           + ", " + this.voteOptions.map(option => option.data).map(item => item?.first)
-        ); 
+        );
       }
-
+    },
+    didSelectCandidates(candidates: Candidates) {
+      this.saveVoteOptionData(candidates);
       this.selectedCandidates = candidates;
     },
     didPressPrevPage() {
@@ -165,11 +175,16 @@ export default defineComponent({
       this.page += 1;
     },
     handleNextStepButton() {
-      if (this.nextStepButtonTitle == CandidatesPageStrings.nextStep) {
-        console.log("go, go, go");
-        this.$router.go(0);
+      const currentVoteOptionFilled = this.currentVoteOption?.filled;
+      if (currentVoteOptionFilled) {
+        if (this.nextStepButtonTitle == CandidatesPageStrings.nextStep) {
+          console.log("go, go, go");
+          this.$router.go(0);
+        } else {
+          this.$router.replace("/preview");
+        }
       } else {
-        this.$router.replace("/preview");
+        this.$router.push("/empty-vote");
       }
     },
   },

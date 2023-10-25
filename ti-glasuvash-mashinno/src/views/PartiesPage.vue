@@ -47,7 +47,7 @@ import { LocalStorageKeys } from "@/store/local-storage-keys";
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 import PartyComponent from "@/components/PartyComponent.vue";
 import PreferencesComponent from "@/components/PreferencesComponent.vue";
-import { VoteOptionData} from "../store/vote-option-data";
+import { VoteOptionData } from "../store/vote-option-data";
 
 export default defineComponent({
   name: "Parties-Component",
@@ -81,9 +81,9 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.loadSelectedVoteOptions()
     this.loadParties();
     this.loadPreferences();
+    this.loadSelectedVoteOptions()
   },
   computed: {
     selectedPreferenceValue() {
@@ -96,6 +96,19 @@ export default defineComponent({
 
       if (storedVoteOptions) {
         this.voteOptions = JSON.parse(storedVoteOptions);
+
+        const voteOption = this.voteOptions.filter(option => option.data?.party != null)[0];
+        if (voteOption) {
+          const party = this.parties.filter(party => party.name == voteOption.data?.party)[0];
+          if (party) {
+            this.selectedParty = party;
+          }
+
+          const preference = this.preferences.filter(preference => "" + preference.id == voteOption.data?.first)[0];
+          if (preference) {
+            this.selectedPreference = preference;
+          }
+        }
 
         if (this.voteOptions.length > 1) {
           this.nextStepButtonTitle = CandidatesPageStrings.nextStep;
@@ -160,11 +173,11 @@ export default defineComponent({
     handleNextStepButton() {
       const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
       if (voteOption) {
-        voteOption.data = { 
-          id: this.selectedParty.id, 
-          party: this.selectedParty.name, 
-          first: "" + this.selectedPreferenceValue, 
-          second: "" 
+        voteOption.data = {
+          id: this.selectedParty.id,
+          party: this.selectedParty.name,
+          first: "" + this.selectedPreferenceValue,
+          second: ""
         };
 
         voteOption.filled = true;
@@ -172,7 +185,7 @@ export default defineComponent({
         localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
       }
 
-      if (this.voteOptions.length > 0) {        
+      if (this.voteOptions.length > 0) {
         this.$router.replace("/candidates");
       } else {
         this.$router.replace("/preview");

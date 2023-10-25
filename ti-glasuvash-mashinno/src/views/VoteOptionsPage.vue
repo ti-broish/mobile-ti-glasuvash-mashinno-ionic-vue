@@ -23,7 +23,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: firstOptionSelected }"
               @click="handleFirstOptionSelected()">
-              <ion-checkbox class="radioCheckbox" :checked="firstOptionSelected"></ion-checkbox>
+              <!-- <ion-checkbox class="radioCheckbox" :checked="firstOptionSelected"></ion-checkbox> -->
               <span class="optionText" v-bind:class="{ optionTextSelected: firstOptionSelected }">{{ firstOptionText
               }}</span>
             </ion-button>
@@ -32,7 +32,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: secondOptionSelected }"
               @click="handleSecondOptionSelected()">
-              <ion-checkbox class="radioCheckbox" :checked="secondOptionSelected"></ion-checkbox>
+              <!-- <ion-checkbox class="radioCheckbox" :checked="secondOptionSelected"></ion-checkbox> -->
               <span class="optionText" v-bind:class="{ optionTextSelected: secondOptionSelected }">{{ secondOptionText
               }}</span>
             </ion-button>
@@ -41,7 +41,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: thirdOptionSelected }"
               @click="handleThirdOptionSelected()">
-              <ion-checkbox class="radioCheckbox" :checked="thirdOptionSelected"></ion-checkbox>
+              <!-- <ion-checkbox class="radioCheckbox" :checked="thirdOptionSelected"></ion-checkbox> -->
               <span class="optionText" v-bind:class="{ optionTextSelected: thirdOptionSelected }">{{ thirdOptionText
               }}</span>
             </ion-button>
@@ -50,7 +50,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: fourthOptionSelected }"
               @click="handleFourthOptionSelected()">
-              <ion-checkbox class="radioCheckbox" :checked="fourthOptionSelected"></ion-checkbox>
+              <!-- <ion-checkbox class="radioCheckbox" :checked="fourthOptionSelected"></ion-checkbox> -->
               <span class="optionText" v-bind:class="{ optionTextSelected: fourthOptionSelected }">{{ fourthOptionText
               }}</span>
             </ion-button>
