@@ -44,10 +44,11 @@ export const enum PartiesPageStrings {
 }
 
 export const enum PreviewPageStrings {
-    sectionTitle = "Преглед на направените избори",
+    title = "Избори 29.10.2023",
+    sectionTitle = "Преглед на избора",
     sectionText0 = "Прегледайте избора си",
     sectionText1 = "Може да го промените, като натиснете “Промени избора”.",
-    sectionText2 = "Натиснете “Гласуване” и изчакайте разписка.", 
+    sectionText2 = "Натиснете “Гласуване” и изчакайте бюлетините.", 
     presidentPlaceholder = "Избори за президент и вицепрезидент",
     partyPlaceholder = "Избори за народни представители", 
     candidatePlaceholder = "Име на кандидат",

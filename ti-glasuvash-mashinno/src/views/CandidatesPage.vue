@@ -45,7 +45,7 @@ import {
 
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 import CandidatesComponent from "@/components/CandidatesComponent.vue";
-import { VoteOptionData} from "../store/vote-option-data";
+import { VoteOptionData } from "../store/vote-option-data";
 
 export default defineComponent({
   name: "Candidates-Component",
