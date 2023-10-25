@@ -32,7 +32,7 @@ export const enum PreviewVoteOptionPageStrings {
     subtitle = "Вие избрахте да гласувате в", 
     description = "Потвърдете своя избор или се върнете назад.", 
     warningText = "Веднъж потвърдили избора си тук, той повече няма да може да бъде променян.",
-    previousButton = "Връщане назад"
+    previousButton = "Назад"
 }
 
 export const enum PartiesPageStrings {

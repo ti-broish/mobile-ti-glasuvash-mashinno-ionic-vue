@@ -138,17 +138,17 @@ ion-item {
 }
 
 .optionLabel {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   padding-left: 8px;
 }
 
 .descriptionLabel {
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .warningLabel {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
 }
 

@@ -193,7 +193,7 @@ export default defineComponent({
 }
 
 .optionNameLabel {
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
   text-align: center;
 }
@@ -205,7 +205,7 @@ export default defineComponent({
 }
 
 .partyLabel {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .changeButtonContainer {
