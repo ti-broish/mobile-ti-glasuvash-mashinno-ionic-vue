@@ -24,7 +24,7 @@ export const enum VoteOptionsPageStrings {
 }
 
 export const enum CandidatesPageStrings {
-    nextStep = "Към избори за НС"
+    nextStep = "Към следващ избор"
 }
 
 export const enum PreviewVoteOptionPageStrings {

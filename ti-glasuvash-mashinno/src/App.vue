@@ -30,7 +30,7 @@ export default defineComponent({
         App.exitApp();
       } else {
         const storedVoteOption =
-          localStorage.getItem(LocalStorageKeys.selectedVoteOption) ?? "";
+          localStorage.getItem(LocalStorageKeys.selectedVoteOptions) ?? "";
 
         if (storedVoteOption == VoteOptionsPageStrings.option1) {
           if (router.currentRoute.value.path === "/parties") {

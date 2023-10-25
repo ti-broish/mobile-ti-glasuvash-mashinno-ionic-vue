@@ -10,9 +10,9 @@
           <div class="previewContainer">
             <ion-label class="descriptionLabel">{{ subtitle }}</ion-label>
             <ion-list class="voteOptionsContainer">
-              <ion-item lines="none" v-for="voteOption in voteOptions" :key="voteOption">
+              <ion-item lines="none" v-for="voteOption in voteOptions" :key="voteOption.id">
                 <div class="optionPrefix"></div>
-                <ion-label class="optionLabel">{{ voteOption }}</ion-label>
+                <ion-label class="optionLabel">{{ voteOption.name }}</ion-label>
               </ion-item>
             </ion-list>
             <ion-label class="descriptionLabel">{{ descriptionText }}</ion-label>
@@ -42,6 +42,7 @@ import {
 } from "@/utils/LocalizedStrings";
 
 import { LocalStorageKeys } from "@/store/local-storage-keys";
+import { VoteOptionData} from "../store/vote-option-data";
 
 export default defineComponent({
   name: "PreviewVoteOption",
@@ -62,7 +63,7 @@ export default defineComponent({
     return {
       title: PreviewVoteOptionPageStrings.title,
       subtitle: PreviewVoteOptionPageStrings.subtitle,
-      voteOptions: [] as Array<string>,
+      voteOptions: [] as Array<VoteOptionData>,
       descriptionText: PreviewVoteOptionPageStrings.description,
       warningText: PreviewVoteOptionPageStrings.warningText,
       prevButtonTitle: PreviewVoteOptionPageStrings.previousButton,
@@ -70,11 +71,11 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.loadSelectedVoteOption();
+    this.loadSelectedVoteOptions();
   },
   methods: {
-    loadSelectedVoteOption() {
-      const storedVoteOptions = localStorage.getItem(LocalStorageKeys.selectedVoteOption);
+    loadSelectedVoteOptions() {
+      const storedVoteOptions = localStorage.getItem(LocalStorageKeys.selectedVoteOptions);
 
       if (storedVoteOptions) {
         this.voteOptions = JSON.parse(storedVoteOptions);
@@ -84,7 +85,7 @@ export default defineComponent({
       this.$router.replace("/vote-options");
     },
     handleConfirmButton() {
-      if (this.voteOptions.includes(VoteOptionsPageStrings.option1)) {
+      if (this.voteOptions.map(option => option.name).includes(VoteOptionsPageStrings.option1)) {
         this.$router.replace("/parties");
       } else {
         this.$router.replace("/candidates");

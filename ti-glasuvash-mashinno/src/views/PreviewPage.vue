@@ -229,7 +229,7 @@ export default defineComponent({
     },
     getStoredVoteOption() {
       const storedVoteOption = localStorage.getItem(
-        LocalStorageKeys.selectedVoteOption
+        LocalStorageKeys.selectedVoteOptions
       );
 
       return storedVoteOption ?? VoteOptionsPageStrings.option3;
@@ -244,7 +244,7 @@ export default defineComponent({
       }
     },
     didPressVote() {
-      localStorage.removeItem(LocalStorageKeys.selectedVoteOption);
+      localStorage.removeItem(LocalStorageKeys.selectedVoteOptions);
       this.resetSelectedValues();
       this.$router.replace("/vote");
     },

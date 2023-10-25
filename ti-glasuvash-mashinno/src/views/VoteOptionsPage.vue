@@ -14,11 +14,8 @@
         </div>
         <div class="optionsList">
           <div class="selectAllOptionsContainer">
-            <ion-checkbox 
-              class="checkbox" 
-              v-model="selectAllOptions" 
-              @ionChange="handleSelectAllOptions($event.target.checked)"
-            ></ion-checkbox>
+            <ion-checkbox class="checkbox" v-model="selectAllOptions"
+              @ionChange="handleSelectAllOptions($event.target.checked)"></ion-checkbox>
             &nbsp;
             <ion-label class="subtitleLabel">{{ selectAllOptionsText }}</ion-label>
           </div>
@@ -26,10 +23,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: firstOptionSelected }"
               @click="handleFirstOptionSelected()">
-              <!-- <ion-checkbox
-                class="checkbox"
-                :checked="firstOptionSelected" 
-              ></ion-checkbox> -->
+              <ion-checkbox class="radioCheckbox" :checked="firstOptionSelected"></ion-checkbox>
               <span class="optionText" v-bind:class="{ optionTextSelected: firstOptionSelected }">{{ firstOptionText
               }}</span>
             </ion-button>
@@ -38,10 +32,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: secondOptionSelected }"
               @click="handleSecondOptionSelected()">
-              <!-- <ion-checkbox
-                class="checkbox"
-                :checked="secondOptionSelected" 
-              ></ion-checkbox> -->
+              <ion-checkbox class="radioCheckbox" :checked="secondOptionSelected"></ion-checkbox>
               <span class="optionText" v-bind:class="{ optionTextSelected: secondOptionSelected }">{{ secondOptionText
               }}</span>
             </ion-button>
@@ -50,10 +41,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: thirdOptionSelected }"
               @click="handleThirdOptionSelected()">
-              <!-- <ion-checkbox
-                class="checkbox"
-                :checked="thirdOptionSelected" 
-              ></ion-checkbox> -->
+              <ion-checkbox class="radioCheckbox" :checked="thirdOptionSelected"></ion-checkbox>
               <span class="optionText" v-bind:class="{ optionTextSelected: thirdOptionSelected }">{{ thirdOptionText
               }}</span>
             </ion-button>
@@ -62,10 +50,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: fourthOptionSelected }"
               @click="handleFourthOptionSelected()">
-              <!-- <ion-checkbox
-                class="checkbox"
-                :checked="fourthOptionSelected" 
-              ></ion-checkbox> -->
+              <ion-checkbox class="radioCheckbox" :checked="fourthOptionSelected"></ion-checkbox>
               <span class="optionText" v-bind:class="{ optionTextSelected: fourthOptionSelected }">{{ fourthOptionText
               }}</span>
             </ion-button>
@@ -93,6 +78,7 @@ import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { VoteOptionsPageStrings } from "@/utils/LocalizedStrings";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
+import { VoteOptionData} from "../store/vote-option-data";
 
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 
@@ -116,7 +102,7 @@ export default defineComponent({
       title: VoteOptionsPageStrings.title,
       subtitle: VoteOptionsPageStrings.subtitle,
       selectAllOptionsText: VoteOptionsPageStrings.selectAll,
-      selectAllOptions: false, 
+      selectAllOptions: false,
       firstOptionText: VoteOptionsPageStrings.option1,
       firstOptionSelected: false,
       secondOptionText: VoteOptionsPageStrings.option2,
@@ -150,24 +136,24 @@ export default defineComponent({
       );
     },
     handleConfirmButton() {
-      const selectedOptions = [];
+      const selectedOptions = Array<VoteOptionData>();
       if (this.firstOptionSelected) {
-        selectedOptions.push(this.firstOptionText);
-      } 
-      
-      if (this.secondOptionSelected) {
-        selectedOptions.push(this.secondOptionText);
-      } 
-      
-      if (this.thirdOptionSelected) {
-        selectedOptions.push(this.thirdOptionText);
-      } 
-      
-      if (this.fourthOptionSelected) {
-        selectedOptions.push(this.fourthOptionText);
+        selectedOptions.push({ id: selectedOptions.length, name: this.firstOptionText, data: null, filled: false });
       }
 
-      localStorage.setItem(LocalStorageKeys.selectedVoteOption, JSON.stringify(selectedOptions));
+      if (this.secondOptionSelected) {
+        selectedOptions.push({ id: selectedOptions.length, name: this.secondOptionText, data: null, filled: false });
+      }
+
+      if (this.thirdOptionSelected) {
+        selectedOptions.push({ id: selectedOptions.length, name: this.thirdOptionText, data: null, filled: false });
+      }
+
+      if (this.fourthOptionSelected) {
+        selectedOptions.push({ id: selectedOptions.length, name: this.fourthOptionText, data: null, filled: false });
+      }
+
+      localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(selectedOptions));
       this.$router.replace("/preview-vote-option");
     },
     handleSelectAllOptions(value: boolean) {
@@ -201,13 +187,11 @@ export default defineComponent({
 
 .contentHeader {
   padding: 4px;
-  /* border: 1px solid var(--tigm-border-color); */
 }
 
 .titleLabel {
   font-size: 22px;
   font-weight: bold;
-  /* border: 1px solid var(--tigm-border-color); */
 }
 
 .subtitleContainer {
@@ -216,13 +200,11 @@ export default defineComponent({
 
 .subtitleLabel {
   font-size: 18px;
-  /* border: 1px solid var(--tigm-border-color); */
 }
 
 .optionsList {
   margin: 20px auto;
   text-align: center;
-  /* border: 2px solid var(--tigm-border-color); */
 }
 
 .option {
@@ -274,6 +256,16 @@ export default defineComponent({
   --border-color: none;
   --border-color-checked: var(--tigm-border-color);
   --size: 24px;
+}
+
+.radioCheckbox {
+  --background: none;
+  --background-checked: var(--tigm-border-color);
+  --border-color: var(--tigm-border-color);
+  --border-color-checked: var(--tigm-border-color-checked);
+  --border-radius: 50% !important;
+  width: 24px;
+  height: 24px;
 }
 
 .optionText {
