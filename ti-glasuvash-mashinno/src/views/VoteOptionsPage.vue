@@ -78,7 +78,7 @@ import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { VoteOptionsPageStrings } from "@/utils/LocalizedStrings";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
-import { VoteOptionData} from "../store/vote-option-data";
+import { VoteOptionData } from "../store/vote-option-data";
 
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 
@@ -158,10 +158,24 @@ export default defineComponent({
     },
     handleSelectAllOptions(value: boolean) {
       this.selectAllOptions = value;
-      this.firstOptionSelected = value;
-      this.secondOptionSelected = value;
-      this.thirdOptionSelected = value;
-      this.fourthOptionSelected = value;
+
+      if (value) {
+        this.firstOptionSelected = true;
+        this.secondOptionSelected = true;
+        this.thirdOptionSelected = true;
+        this.fourthOptionSelected = true;
+      } else {
+        if (this.firstOptionSelected
+          && this.secondOptionSelected
+          && this.thirdOptionSelected
+          && this.fourthOptionSelected
+        ) {
+          this.firstOptionSelected = false;
+          this.secondOptionSelected = false;
+          this.thirdOptionSelected = false;
+          this.fourthOptionSelected = false;
+        }
+      }
     },
     handleFirstOptionSelected() {
       this.firstOptionSelected = !this.firstOptionSelected;

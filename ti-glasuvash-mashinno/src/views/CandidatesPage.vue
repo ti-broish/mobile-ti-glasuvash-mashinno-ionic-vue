@@ -85,7 +85,7 @@ export default defineComponent({
   },
   methods: {
     hasAllVoteOptionsData() {
-      const notFilled = this.voteOptions.filter(option => option.filled == false)[0];
+      const notFilled = this.voteOptions.filter(option => option.filled == false && option.data == null)[0];
       if (notFilled) {
         return false;
       }
@@ -103,7 +103,6 @@ export default defineComponent({
       const storedVoteOptions = localStorage.getItem(LocalStorageKeys.selectedVoteOptions);
 
       if (storedVoteOptions) {
-        console.log("storedVoteOptions: " + storedVoteOptions);
         this.voteOptions = JSON.parse(storedVoteOptions);
 
         const voteOption = this.voteOptions.filter(option => option.filled == false)[0];
@@ -126,7 +125,6 @@ export default defineComponent({
       const builder = new CandidatesBuilder();
       this.candidates = builder.makeCandidates();
       this.notaId = this.candidates[this.candidates.length - 1].id;
-      console.log("candidates: ", this.candidates);
     },
     currentPageCandidates(): Array<Candidates> {
       const result = Array<Candidates>();
@@ -150,14 +148,9 @@ export default defineComponent({
       const option = this.currentVoteOption as VoteOptionData;
       if (option) {
         option.data = candidates;
-        option.filled = true;
+        option.filled = option.data !== null;
 
         localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
-        console.log(""
-          + LocalStorageKeys.selectedVoteOptions
-          + ": " + this.voteOptions.map(option => option.name)
-          + ", " + this.voteOptions.map(option => option.data).map(item => item?.first)
-        );
       }
     },
     didSelectCandidates(candidates: Candidates) {
@@ -178,7 +171,6 @@ export default defineComponent({
       const currentVoteOptionFilled = this.currentVoteOption?.filled;
       if (currentVoteOptionFilled) {
         if (this.nextStepButtonTitle == CandidatesPageStrings.nextStep) {
-          console.log("go, go, go");
           this.$router.go(0);
         } else {
           this.$router.replace("/preview");

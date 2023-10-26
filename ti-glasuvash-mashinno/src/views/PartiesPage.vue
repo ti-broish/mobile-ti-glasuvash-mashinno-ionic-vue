@@ -26,7 +26,7 @@
         </div>
         <!-- footer -->
         <div class="pageFooter">
-          <ion-button class="nextStepButton" @click="handleNextStepButton()" :disabled="!hasSelectedParty()">{{
+          <ion-button class="nextStepButton" @click="handleNextStepButton()">{{
             nextStepButtonTitle
           }}</ion-button>
         </div>
@@ -121,7 +121,6 @@ export default defineComponent({
       const builder = new PartiesBuilder();
       this.parties = builder.makeParties();
       this.notaId = this.parties[this.parties.length - 1].id;
-      console.log("parties: ", this.parties);
     },
     loadPreferences() {
       for (let i = 1; i <= 32; i++) {
@@ -130,7 +129,11 @@ export default defineComponent({
       }
     },
     hasSelectedParty() {
-      return (this.selectedParty.id > 0);
+      if (this.selectedParty !== null) {
+        return this.selectedParty.id > 0;
+      } else {
+        return false;
+      }
     },
     didSelectParty(party: Party) {
       if (party == null || party?.id != this.selectedParty?.id) {
@@ -171,24 +174,28 @@ export default defineComponent({
       this.page += 1;
     },
     handleNextStepButton() {
-      const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
-      if (voteOption) {
-        voteOption.data = {
-          id: this.selectedParty.id,
-          party: this.selectedParty.name,
-          first: "" + this.selectedPreferenceValue,
-          second: ""
-        };
+      if (this.hasSelectedParty()) {
+        const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
+        if (voteOption) {
+          voteOption.data = {
+            id: this.selectedParty.id,
+            party: this.selectedParty.name,
+            first: "" + this.selectedPreferenceValue,
+            second: ""
+          };
 
-        voteOption.filled = true;
+          voteOption.filled = true;
 
-        localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
-      }
+          localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
+        }
 
-      if (this.voteOptions.length > 0) {
-        this.$router.replace("/candidates");
+        if (this.voteOptions.length == 1 && this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0]) {
+          this.$router.replace("/preview");
+        } else {
+          this.$router.replace("/candidates");
+        }
       } else {
-        this.$router.replace("/preview");
+        this.$router.push("/empty-vote");
       }
     },
   },

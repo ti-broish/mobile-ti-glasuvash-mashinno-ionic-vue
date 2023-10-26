@@ -103,9 +103,7 @@ export default defineComponent({
   methods: {
     loadSelectedValues() {
       const storedVoteOptions = localStorage.getItem(LocalStorageKeys.selectedVoteOptions);
-
       if (storedVoteOptions) {
-        console.log("storedVoteOptions: " + storedVoteOptions);
         this.voteOptions = JSON.parse(storedVoteOptions);
       }
 
@@ -121,7 +119,7 @@ export default defineComponent({
     didPressChange() {
       this.resetSelectedValues();
       
-      const voteOption = this.voteOptions.filter(option => option.data?.party != null)[0];
+      const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
       if (voteOption) {
         this.$router.replace("/parties");
       } else {
