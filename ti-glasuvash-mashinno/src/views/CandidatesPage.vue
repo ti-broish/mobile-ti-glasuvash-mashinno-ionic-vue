@@ -85,7 +85,12 @@ export default defineComponent({
   },
   methods: {
     hasAllVoteOptionsData() {
-      const notFilled = this.voteOptions.filter(option => option.filled == false && option.data == null)[0];
+      const notFilledAndNoData = this.voteOptions.filter(option => option.filled == false && option.data == null)[0];
+      if (notFilledAndNoData) {
+        return false;
+      }
+      
+      const notFilled = this.voteOptions.filter(option => option.filled == false)[0];
       if (notFilled) {
         return false;
       }
