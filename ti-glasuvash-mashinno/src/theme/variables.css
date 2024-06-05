@@ -75,6 +75,7 @@ http://ionicframework.com/docs/theming/ */
 :root {
   --ion-background-color: #FFFFFF;
   --tigm-border-color: #262629;
+  --tigm-border-color-checked: #FFFFFF;
   --tigm-button-background-color: #262629;
   --tigm-button-activated-color: #464649;
 

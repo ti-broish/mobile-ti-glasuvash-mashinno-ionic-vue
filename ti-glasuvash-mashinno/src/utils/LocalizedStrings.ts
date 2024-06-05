@@ -1,7 +1,7 @@
 export const enum HomePageStrings {
-    title = "Избори за Народно събрание 2 април 2023г.",
-    subtitle = "Добре дошли",
-    hint = "Поставете картата в долния отвор на машината.",
+    title = "Добре дошли в Избори 29.10.2023",
+    subtitle = "",
+    hint = "Поставете картата в слота за четене",
     cardButtonTitle = "Поставете карта", 
     privacyNotice = "Декларация за поверителност"
 }
@@ -9,25 +9,29 @@ export const enum HomePageStrings {
 export const enum PageHeaderStrings {
     electionRegion = "Район",
     section = "Секция",
-    title = "Избори за народни представители",
+    title = "Избори за общински съветници",
 }
 
 export const enum VoteOptionsPageStrings {
     title = "Посочете в кои избори ще гласувате", 
     subtitle = "Натиснете и потвърдете", 
-    option1 = "ИЗБОРИ ЗА ПРЕЗИДЕНТ И ВИЦЕПРЕЗИДЕНТ И ЗА НАРОДНИ ПРЕДСТАВИТЕЛИ", 
-    option2 = "ИЗБОРИ ЗА ПРЕЗИДЕНТ И ВИЦЕПРЕЗИДЕНТ", 
-    option3 = "ИЗБОРИ ЗА НАРОДНИ ПРЕДСТАВИТЕЛИ", 
+    selectAll = "Избери всички", 
+    option1 = "ИЗБОРИ ЗА ОБЩИНСКИ СЪВЕТНИЦИ", 
+    option2 = "ИЗБОРИ ЗА КМЕТ НА ОБЩИНА", 
+    option3 = "ИЗБОРИ ЗА КМЕТ НА РАЙОН",
+    option4 = "ИЗБОРИ ЗА КМЕТ НА КМЕТСТВО",  
     confirmButton = "Потвърждавам"
 }
 
 export const enum CandidatesPageStrings {
-    nextStep = "Към избори за НС"
+    nextStep = "Към следващ избор"
 }
 
 export const enum PreviewVoteOptionPageStrings {
-    title = "Вие избрахте да гласувате в:", 
+    title = "Потвърдете избора си", 
+    subtitle = "Вие избрахте да гласувате в", 
     description = "Потвърдете своя избор или се върнете назад.", 
+    warningText = "Веднъж потвърдили избора си тук, той повече няма да може да бъде променян.",
     previousButton = "Назад"
 }
 
@@ -40,10 +44,11 @@ export const enum PartiesPageStrings {
 }
 
 export const enum PreviewPageStrings {
-    sectionTitle = "Преглед на направените избори",
+    title = "Избори 29.10.2023",
+    sectionTitle = "Преглед на избора",
     sectionText0 = "Прегледайте избора си",
     sectionText1 = "Може да го промените, като натиснете “Промени избора”.",
-    sectionText2 = "Натиснете “Гласуване” и изчакайте разписка.", 
+    sectionText2 = "Натиснете “Гласуване” и изчакайте бюлетините.", 
     presidentPlaceholder = "Избори за президент и вицепрезидент",
     partyPlaceholder = "Избори за народни представители", 
     candidatePlaceholder = "Име на кандидат",
@@ -65,4 +70,10 @@ export const enum VoteConfirmationPageStrings {
 
 export const enum RemoveCardPageStrings {
     title = "Извадете картата, за да продължите."
+}
+
+export const enum EmptyVotePageStrings {
+    title = "Не сте направили своя избор", 
+    text = "Изберете партия, коалиция, независим кандидат или \"Не подкрепям никого\"",
+    doneButton = "Добре"
 }

@@ -20,90 +20,23 @@
           </div>
           <div class="previewSeparator"></div>
           <!-- Vote -->
-          <div v-if="showCandidatesSection()">
-            <div class="previewTitleContainer">
-              <ion-label class="previewTitleLabel">{{
-                presidentPlaceholder
-              }}</ion-label>
-            </div>
-          </div>
-          <div v-if="hasCandidates()">
-            <div class="candidatesLabelContainer">
-              <!-- <div v-if="candidates.id < 10">
-                <ion-label class="partyLabel"
-                  >0{{ candidates.id }}. {{ candidates.party }}</ion-label
-                >
-              </div> -->
-              <div v-if="candidates.id === 24">
-                <ion-label class="partyLabel">{{ candidates.party }}</ion-label>
-              </div>
-              <div v-else>
-                <ion-label class="partyLabel"
-                  >{{ candidates.id }}. {{ candidates.party }}</ion-label
-                >
-              </div>
-              <div>
-                <ion-label class="partyLabel">{{
-                  candidates.president
-                }}</ion-label>
-                <br />
-                <ion-label class="partyLabel">{{
-                  candidates.vice_president
-                }}</ion-label>
-              </div>
-            </div>
-          </div>
-          <div v-else-if="showCandidatesSection()">
-            <div class="notaContainer">
-              <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
-            </div>
-          </div>
-          <!-- Party -->
-          <div v-if="showPartySection()">
-            <div class="previewTitleContainer">
-              <ion-label class="previewTitleLabel">{{
-                partyPlaceholder
-              }}</ion-label>
-            </div>
-          </div>
-          <div v-if="hasParty()">
-            <div class="voteContainer">
-              <!-- <div class="box"></div> -->
-              <div class="partyContainer">
-                <!-- <div class="line"></div> -->
-                <div class="partyLabelContainer">
-                  <!-- <div v-if="party.id < 10">
-                    <ion-label class="partyLabel"
-                      >0{{ party.id }}. {{ party.name }}</ion-label
-                    >
-                  </div> -->
-                  <div v-if="party.id === 37">
-                    <ion-label class="partyLabel">{{ party.name }}</ion-label>
-                  </div>
-                  <div v-else>
-                    <ion-label class="partyLabel"
-                      >{{ party.id }}. {{ party.name }}</ion-label
-                    >
-                  </div>
-                  <div class="preferenceLabelContainer">
-                    <div v-if="hasPreference()">
-                      <ion-label class="prefrenceLabel"
-                        >{{ preference?.id }}. {{ candidatePlaceholder }}
-                      </ion-label>
-                    </div>
-                    <div v-else-if="party.is === 37">
-                      <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
-                    </div>
+          <ion-list>
+            <ion-item lines="none" v-for="option in voteOptions" :key="option.name">
+              <div class="optionContainer">
+                <div class="optionNameContainer">
+                  <ion-label class="optionNameLabel">{{
+                    option.name
+                  }}</ion-label>
+                </div>
+                <div class="optionValueContainer">
+                  <div>{{ option.data?.first }}</div>
+                  <div>
+                    <ion-label class="partyLabel">{{ option.data?.party }} {{ option.data?.id }}</ion-label>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div v-else-if="showPartySection()">
-            <div class="notaContainer">
-              <ion-label class="notaLabel">{{ notaTitle }}</ion-label>
-            </div>
-          </div>
+            </ion-item>
+          </ion-list>
         </div>
         <div class="changeButtonContainer">
           <ion-button class="changeButton" @click="didPressChange()">{{
@@ -112,12 +45,8 @@
         </div>
         <!-- Page footer -->
         <div class="pageFooter">
-          <ion-button
-            class="voteButton"
-            @click="didPressVote()"
-            :disabled="!hasParty() && !hasCandidates()"
-            >{{ voteButtonTitle }}</ion-button
-          >
+          <ion-button class="voteButton" @click="didPressVote()">{{
+            voteButtonTitle }}</ion-button>
         </div>
       </div>
     </ion-content>
@@ -128,14 +57,11 @@
 import { IonContent, IonPage, IonLabel, IonButton } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-import {
-  HomePageStrings, 
-  PreviewPageStrings,
-  VoteOptionsPageStrings,
-} from "@/utils/LocalizedStrings";
+import { PreviewPageStrings, VoteOptionsPageStrings } from "@/utils/LocalizedStrings";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
 import { Candidates } from "@/store/candidates/types";
 import { Party, Preference } from "@/store/parties/types";
+import { VoteOptionData } from "../store/vote-option-data";
 
 import PageHeaderComponent from "@/components/PageHeaderComponent.vue";
 
@@ -160,20 +86,15 @@ export default defineComponent({
   },
   data() {
     return {
-      title: HomePageStrings.title,
+      title: PreviewPageStrings.title,
       sectionTitle: PreviewPageStrings.sectionTitle,
       sectionText0: PreviewPageStrings.sectionText0,
       sectionText1: PreviewPageStrings.sectionText1,
       sectionText2: PreviewPageStrings.sectionText2,
-      presidentPlaceholder: PreviewPageStrings.presidentPlaceholder,
-      partyPlaceholder: PreviewPageStrings.partyPlaceholder,
-      candidatePlaceholder: PreviewPageStrings.candidatePlaceholder,
       notaTitle: PreviewPageStrings.notaTitle,
       changeButtonTitle: PreviewPageStrings.changeButton,
       voteButtonTitle: PreviewPageStrings.voteButton,
-      candidates: {} as Candidates,
-      party: {} as Party,
-      preference: {} as Preference,
+      voteOptions: [] as Array<VoteOptionData>,
     };
   },
   mounted() {
@@ -181,70 +102,32 @@ export default defineComponent({
   },
   methods: {
     loadSelectedValues() {
-      const candidatesJSON = localStorage.getItem(LocalStorageKeys.candidates);
-      if (candidatesJSON) {
-        const storedCandidates: Candidates = JSON.parse(candidatesJSON);
-        this.candidates = storedCandidates;
-      }
-
-      const partyJSON = localStorage.getItem(LocalStorageKeys.party);
-      if (partyJSON) {
-        const storedParty: Party = JSON.parse(partyJSON);
-        this.party = storedParty;
-      }
-
-      const preferenceJSON = localStorage.getItem(LocalStorageKeys.preference);
-      if (preferenceJSON) {
-        const storedPreference: Preference = JSON.parse(preferenceJSON);
-        this.preference = storedPreference;
+      const storedVoteOptions = localStorage.getItem(LocalStorageKeys.selectedVoteOptions);
+      if (storedVoteOptions) {
+        this.voteOptions = JSON.parse(storedVoteOptions);
       }
 
       this.scrollToBottom();
     },
-    hasCandidates() {
-      return this.candidates?.id > 0;
-    },
-    hasParty() {
-      return this.party?.id > 0;
-    },
-    hasPreference() {
-      return this.preference?.id > 0;
-    },
-    showCandidatesSection() {
-      return (
-        this.getStoredVoteOption() == VoteOptionsPageStrings.option1 ||
-        this.getStoredVoteOption() == VoteOptionsPageStrings.option2
-      );
-    },
-    showPartySection() {
-      return (
-        this.getStoredVoteOption() == VoteOptionsPageStrings.option1 ||
-        this.getStoredVoteOption() == VoteOptionsPageStrings.option3
-      );
-    },
     resetSelectedValues() {
-      localStorage.removeItem(LocalStorageKeys.candidates);
-      localStorage.removeItem(LocalStorageKeys.party);
-      localStorage.removeItem(LocalStorageKeys.preference);
-    },
-    getStoredVoteOption() {
-      const storedVoteOption = localStorage.getItem(
-        LocalStorageKeys.selectedVoteOption
-      );
+      for(let i = 0; i < this.voteOptions.length; i++) {
+        this.voteOptions[i].filled = false;
+      }
 
-      return storedVoteOption ?? VoteOptionsPageStrings.option3;
+      localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
     },
     didPressChange() {
       this.resetSelectedValues();
-
-      if (this.showCandidatesSection()) {
-        this.$router.replace("/candidates");
-      } else {
+      
+      const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
+      if (voteOption) {
         this.$router.replace("/parties");
+      } else {
+        this.$router.replace("/candidates");
       }
     },
     didPressVote() {
-      localStorage.removeItem(LocalStorageKeys.selectedVoteOption);
+      localStorage.removeItem(LocalStorageKeys.selectedVoteOptions);
       this.resetSelectedValues();
       this.$router.replace("/vote");
     },
@@ -294,80 +177,32 @@ export default defineComponent({
   border: 2px solid var(--tigm-border-color);
 }
 
-.previewTitleContainer {
+.optionContainer {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 16px;
+  width: 80%;
+}
+
+.optionNameContainer {
   margin: 16px auto;
   width: 80%;
   text-align: center;
 }
 
-.previewTitleLabel {
-  font-size: 18px;
+.optionNameLabel {
+  font-size: 12px;
   font-weight: 600;
+  text-align: center;
 }
 
-.voteContainer {
-  display: flex;
-  flex-direction: row;
-}
-
-.notaContainer {
+.optionValueContainer {
   margin: 16px auto;
+  width: 80%;
   text-align: center;
-}
-
-.notaLabel {
-  font-size: 16px;
-}
-
-.box {
-  margin-top: 8px;
-  margin-left: 25px;
-  min-width: 18px;
-  width: 18px;
-  height: 18px;
-  max-height: 18px;
-  background: var(--tigm-button-background-color);
-}
-
-.partyContainer {
-  /* display: flex;
-  flex-direction: row; */
-  margin: auto;
-  text-align: left;
-  margin-bottom: 16px;
-}
-
-.line {
-  margin-top: 8px;
-  margin-left: -10px;
-  margin-bottom: 24px;
-  width: 15px;
-  border-left: 1px solid var(--tigm-border-color);
-  border-bottom: 1px solid var(--tigm-border-color);
-}
-
-.candidatesLabelContainer {
-  margin: auto;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.partyLabelContainer {
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-top: 8px;
-  margin-bottom: 16px;
 }
 
 .partyLabel {
-  font-size: 16px;
-}
-
-.preferenceLabelContainer {
-  margin-top: 8px;
-}
-
-.preferenceLabel {
   font-size: 14px;
 }
 
