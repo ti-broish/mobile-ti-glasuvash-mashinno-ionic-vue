@@ -37,7 +37,7 @@
         ></selected-box-component>
       </div>
       <span class="nameItem" v-bind:class="{ nameItemSelected: isSelected() }"
-        >{{ candidates?.president }}<br />{{ candidates?.vice_president }}</span
+        >{{ candidates?.first }}<br />{{ candidates?.second }}</span
       >
     </ion-item>
   </div>

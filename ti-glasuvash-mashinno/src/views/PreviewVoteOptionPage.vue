@@ -8,25 +8,22 @@
           </div>
           <div class="separator"></div>
           <div class="previewContainer">
-            <div class="labelContainer">
-              <ion-label class="optionLabel">{{ selectedVoteOptionText }}</ion-label>
-            </div>
-            <div class="labelContainer">
-              <ion-label class="descriptionLabel">{{ descriptionText }}</ion-label>
-            </div>
+            <ion-label class="descriptionLabel">{{ subtitle }}</ion-label>
+            <ion-list class="voteOptionsContainer">
+              <ion-item lines="none" v-for="voteOption in voteOptions" :key="voteOption.id">
+                <div class="optionPrefix"></div>
+                <ion-label class="optionLabel">{{ voteOption.name }}</ion-label>
+              </ion-item>
+            </ion-list>
+            <ion-label class="descriptionLabel">{{ descriptionText }}</ion-label>
+            <br><br>
+            <ion-label class="warningLabel">{{ warningText }}</ion-label>
+            <br><br>
             <div class="buttonsContainer">
-              <ion-button
-                class="pageButton"
-                fill="clear"
-                @click="handlePreviousButton()"
-                >{{ prevButtonTitle }}</ion-button
-              >
-              <ion-button
-                class="pageButton nextPageButton"
-                fill="clear"
-                @click="handleConfirmButton()"
-                >{{ confirmButtonTitle }}</ion-button
-              >
+              <ion-button class="pageButton" fill="clear" @click="handlePreviousButton()">{{ prevButtonTitle
+              }}</ion-button>
+              <ion-button class="pageButton nextPageButton" fill="clear" @click="handleConfirmButton()">{{
+                confirmButtonTitle }}</ion-button>
             </div>
           </div>
         </div>
@@ -36,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonButton, IonLabel } from "@ionic/vue";
+import { IonContent, IonPage, IonButton, IonLabel, IonList, IonItem, } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import {
@@ -45,6 +42,7 @@ import {
 } from "@/utils/LocalizedStrings";
 
 import { LocalStorageKeys } from "@/store/local-storage-keys";
+import { VoteOptionData} from "../store/vote-option-data";
 
 export default defineComponent({
   name: "PreviewVoteOption",
@@ -53,6 +51,8 @@ export default defineComponent({
     IonPage,
     IonButton,
     IonLabel,
+    IonList,
+    IonItem
   },
   setup() {
     const router = useRouter();
@@ -62,29 +62,30 @@ export default defineComponent({
   data() {
     return {
       title: PreviewVoteOptionPageStrings.title,
-      selectedVoteOptionText: "", 
-      descriptionText: PreviewVoteOptionPageStrings.description, 
+      subtitle: PreviewVoteOptionPageStrings.subtitle,
+      voteOptions: [] as Array<VoteOptionData>,
+      descriptionText: PreviewVoteOptionPageStrings.description,
+      warningText: PreviewVoteOptionPageStrings.warningText,
       prevButtonTitle: PreviewVoteOptionPageStrings.previousButton,
       confirmButtonTitle: VoteOptionsPageStrings.confirmButton,
     };
   },
   mounted() {
-    this.loadSelectedVoteOption();
+    this.loadSelectedVoteOptions();
   },
   methods: {
-    loadSelectedVoteOption() {
-      const storedVoteOption = localStorage.getItem(
-        LocalStorageKeys.selectedVoteOption
-      );
-      if (storedVoteOption) {
-        this.selectedVoteOptionText = storedVoteOption;
+    loadSelectedVoteOptions() {
+      const storedVoteOptions = localStorage.getItem(LocalStorageKeys.selectedVoteOptions);
+
+      if (storedVoteOptions) {
+        this.voteOptions = JSON.parse(storedVoteOptions);
       }
     },
     handlePreviousButton() {
       this.$router.replace("/vote-options");
     },
     handleConfirmButton() {
-      if (this.selectedVoteOptionText == VoteOptionsPageStrings.option3) {
+      if (this.voteOptions.map(option => option.name).includes(VoteOptionsPageStrings.option1)) {
         this.$router.replace("/parties");
       } else {
         this.$router.replace("/candidates");
@@ -117,13 +118,38 @@ export default defineComponent({
   font-weight: bold;
 }
 
+.voteOptionsContainer {
+  flex-direction: row;
+}
+
+ion-item {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --inner-padding-top: 0px;
+  --inner-padding-bottom: 0px;
+}
+
+.optionPrefix {
+  width: 8px;
+  height: 2px;
+  background-color: #000;
+}
+
 .optionLabel {
-  font-size: 22px;
+  font-size: 12px;
   font-weight: bold;
+  padding-left: 8px;
 }
 
 .descriptionLabel {
-  font-size: 16px;
+  font-size: 12px;
+}
+
+.warningLabel {
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .separator {

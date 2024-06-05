@@ -1,6 +1,6 @@
 export const enum LocalStorageKeys {
-    selectedVoteOption = "selectedLocalStorageKey", 
+    selectedVoteOptions = "selectedLocalStorageKey", 
     candidates = "candidatesLocalStorageKey",
     party = "partyLocalStorageKey",
-    preference = "preferenceLocalStorageKey",
+    preference = "preferenceLocalStorageKey", 
 }

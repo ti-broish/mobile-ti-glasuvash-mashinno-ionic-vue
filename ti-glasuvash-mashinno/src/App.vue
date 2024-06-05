@@ -29,24 +29,24 @@ export default defineComponent({
       } else if (router.currentRoute.value.path === "/home") {
         App.exitApp();
       } else {
-        const storedVoteOption =
-          localStorage.getItem(LocalStorageKeys.selectedVoteOption) ?? "";
+        // const storedVoteOption =
+        //   localStorage.getItem(LocalStorageKeys.selectedVoteOptions) ?? "";
 
-        if (storedVoteOption == VoteOptionsPageStrings.option1) {
-          if (router.currentRoute.value.path === "/parties") {
-            router.replace("/candidates");
-          } else if (router.currentRoute.value.path === "/preview") {
-            router.replace("/parties");
-          }
-        } else if (storedVoteOption == VoteOptionsPageStrings.option2) {
-          if (router.currentRoute.value.path === "/preview") {
-            router.replace("/candidates");
-          }
-        } else if (storedVoteOption == VoteOptionsPageStrings.option3) {
-          if (router.currentRoute.value.path === "/preview") {
-            router.replace("/parties");
-          }
-        }
+        // if (storedVoteOption == VoteOptionsPageStrings.option1) {
+        //   if (router.currentRoute.value.path === "/parties") {
+        //     router.replace("/candidates");
+        //   } else if (router.currentRoute.value.path === "/preview") {
+        //     router.replace("/parties");
+        //   }
+        // } else if (storedVoteOption == VoteOptionsPageStrings.option2) {
+        //   if (router.currentRoute.value.path === "/preview") {
+        //     router.replace("/candidates");
+        //   }
+        // } else if (storedVoteOption == VoteOptionsPageStrings.option3) {
+        //   if (router.currentRoute.value.path === "/preview") {
+        //     router.replace("/parties");
+        //   }
+        // }
       }
     });
   },
