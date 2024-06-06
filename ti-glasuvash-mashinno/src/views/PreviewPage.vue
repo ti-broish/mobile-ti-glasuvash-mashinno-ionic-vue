@@ -123,7 +123,7 @@ export default defineComponent({
       if (voteOption) {
         this.$router.replace("/parties");
       } else {
-        this.$router.replace("/candidates");
+        this.$router.replace("/parties-eu");
       }
     },
     didPressVote() {
@@ -185,7 +185,7 @@ export default defineComponent({
 }
 
 .optionNameContainer {
-  margin: 16px auto;
+  margin: 4px auto;
   width: 80%;
   text-align: center;
 }

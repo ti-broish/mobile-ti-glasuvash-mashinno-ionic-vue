@@ -87,8 +87,8 @@ export default defineComponent({
     handleConfirmButton() {
       if (this.voteOptions.map(option => option.name).includes(VoteOptionsPageStrings.option1)) {
         this.$router.replace("/parties");
-      } else {
-        this.$router.replace("/candidates");
+      } else if (this.voteOptions.map(option => option.name).includes(VoteOptionsPageStrings.option2)) {
+        this.$router.replace("/parties-eu");
       }
     },
   },
@@ -105,8 +105,8 @@ export default defineComponent({
   margin: 20px auto;
   border: 2px solid var(--tigm-border-color);
   border-radius: 8px;
-  min-width: 80%;
-  width: 80%;
+  min-width: 90%;
+  width: 90%;
 }
 
 .labelContainer {

@@ -23,7 +23,7 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: firstOptionSelected }"
               @click="handleFirstOptionSelected()">
-              <!-- <ion-checkbox class="radioCheckbox" :checked="firstOptionSelected"></ion-checkbox> -->
+              <ion-checkbox class="radioCheckbox" :checked="firstOptionSelected"></ion-checkbox>
               <span class="optionText" v-bind:class="{ optionTextSelected: firstOptionSelected }">{{ firstOptionText
               }}</span>
             </ion-button>
@@ -32,26 +32,8 @@
           <div class="option">
             <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: secondOptionSelected }"
               @click="handleSecondOptionSelected()">
-              <!-- <ion-checkbox class="radioCheckbox" :checked="secondOptionSelected"></ion-checkbox> -->
+              <ion-checkbox class="radioCheckbox" :checked="secondOptionSelected"></ion-checkbox>
               <span class="optionText" v-bind:class="{ optionTextSelected: secondOptionSelected }">{{ secondOptionText
-              }}</span>
-            </ion-button>
-          </div>
-          <!-- third option -->
-          <div class="option">
-            <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: thirdOptionSelected }"
-              @click="handleThirdOptionSelected()">
-              <!-- <ion-checkbox class="radioCheckbox" :checked="thirdOptionSelected"></ion-checkbox> -->
-              <span class="optionText" v-bind:class="{ optionTextSelected: thirdOptionSelected }">{{ thirdOptionText
-              }}</span>
-            </ion-button>
-          </div>
-          <!-- fourth option -->
-          <div class="option">
-            <ion-button class="optionButton" fill="clear" v-bind:class="{ optionButtonSelected: fourthOptionSelected }"
-              @click="handleFourthOptionSelected()">
-              <!-- <ion-checkbox class="radioCheckbox" :checked="fourthOptionSelected"></ion-checkbox> -->
-              <span class="optionText" v-bind:class="{ optionTextSelected: fourthOptionSelected }">{{ fourthOptionText
               }}</span>
             </ion-button>
           </div>
@@ -106,11 +88,7 @@ export default defineComponent({
       firstOptionText: VoteOptionsPageStrings.option1,
       firstOptionSelected: false,
       secondOptionText: VoteOptionsPageStrings.option2,
-      secondOptionSelected: false,
-      thirdOptionText: VoteOptionsPageStrings.option3,
-      thirdOptionSelected: false,
-      fourthOptionText: VoteOptionsPageStrings.option4,
-      fourthOptionSelected: false,
+      secondOptionSelected: false,      
       confirmButtonTitle: VoteOptionsPageStrings.confirmButton,
     };
   },
@@ -122,35 +100,21 @@ export default defineComponent({
   },
   methods: {
     updateCheckbox() {
-      this.selectAllOptions = this.firstOptionSelected
-        && this.secondOptionSelected
-        && this.thirdOptionSelected
-        && this.fourthOptionSelected;
+      this.selectAllOptions = this.firstOptionSelected && this.secondOptionSelected;
     },
     hasSelectedOption() {
       return (
-        this.firstOptionSelected ||
-        this.secondOptionSelected ||
-        this.thirdOptionSelected ||
-        this.fourthOptionSelected
+        this.firstOptionSelected || this.secondOptionSelected
       );
     },
     handleConfirmButton() {
       const selectedOptions = Array<VoteOptionData>();
       if (this.firstOptionSelected) {
         selectedOptions.push({ id: selectedOptions.length, name: this.firstOptionText, data: null, filled: false });
-      }
-
+      } 
+      
       if (this.secondOptionSelected) {
         selectedOptions.push({ id: selectedOptions.length, name: this.secondOptionText, data: null, filled: false });
-      }
-
-      if (this.thirdOptionSelected) {
-        selectedOptions.push({ id: selectedOptions.length, name: this.thirdOptionText, data: null, filled: false });
-      }
-
-      if (this.fourthOptionSelected) {
-        selectedOptions.push({ id: selectedOptions.length, name: this.fourthOptionText, data: null, filled: false });
       }
 
       localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(selectedOptions));
@@ -162,18 +126,10 @@ export default defineComponent({
       if (value) {
         this.firstOptionSelected = true;
         this.secondOptionSelected = true;
-        this.thirdOptionSelected = true;
-        this.fourthOptionSelected = true;
       } else {
-        if (this.firstOptionSelected
-          && this.secondOptionSelected
-          && this.thirdOptionSelected
-          && this.fourthOptionSelected
-        ) {
+        if (this.firstOptionSelected && this.secondOptionSelected) {
           this.firstOptionSelected = false;
           this.secondOptionSelected = false;
-          this.thirdOptionSelected = false;
-          this.fourthOptionSelected = false;
         }
       }
     },
@@ -182,12 +138,6 @@ export default defineComponent({
     },
     handleSecondOptionSelected() {
       this.secondOptionSelected = !this.secondOptionSelected;
-    },
-    handleThirdOptionSelected() {
-      this.thirdOptionSelected = !this.thirdOptionSelected;
-    },
-    handleFourthOptionSelected() {
-      this.fourthOptionSelected = !this.fourthOptionSelected;
     }
   },
 });
@@ -200,7 +150,9 @@ export default defineComponent({
 }
 
 .contentHeader {
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: max(var(--ion-safe-area-left), 7px);
 }
 
 .titleLabel {
@@ -222,12 +174,13 @@ export default defineComponent({
 }
 
 .option {
-  margin: 20px auto;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
   text-align: center;
   border: 2px solid var(--tigm-border-color);
   border-radius: 4px;
   min-width: 75%;
-  width: 75%;
   height: 60px;
 }
 
@@ -254,7 +207,7 @@ export default defineComponent({
 }
 
 .selectAllOptionsContainer {
-  margin-left: 12.5%;
+  margin-left: 20px;
   min-width: 75%;
   width: 75%;
   text-align: left;
@@ -264,17 +217,20 @@ export default defineComponent({
 }
 
 .checkbox {
-  margin-right: 8px;
-  --background: none;
-  --background-checked: var(--tigm-border-color);
-  --border-color: none;
+  margin-right: 4px;
+  --checkbox-background: none;
+  --checkbox-background-checked: var(--tigm-checkbox-background-activated-color);
+  --checkmark-color: var(--tigm-border-color);
+  --border-color: var(--tigm-border-color);
   --border-color-checked: var(--tigm-border-color);
   --size: 24px;
+  --border-radius: 4px;
 }
 
 .radioCheckbox {
-  --background: none;
-  --background-checked: var(--tigm-border-color);
+  --checkbox-background: none;
+  --checkbox-background-checked: var(--tigm-checkbox-background-activated-color);
+  --checkmark-color: var(--tigm-border-color); 
   --border-color: var(--tigm-border-color);
   --border-color-checked: var(--tigm-border-color-checked);
   --border-radius: 50% !important;
@@ -283,7 +239,7 @@ export default defineComponent({
 }
 
 .optionText {
-  margin: 8px;
+  margin-left: 8px;
   color: var(--tigm-border-color);
   font-size: 16px;
   text-align: left;
@@ -291,7 +247,7 @@ export default defineComponent({
 }
 
 .optionTextSelected {
-  color: var(--ion-background-color);
+  color: var(--tigm-background-color);
 }
 
 .pageFooter {
@@ -299,18 +255,6 @@ export default defineComponent({
 }
 
 .confirmButton {
-  /* float: right;
-  margin-top: 15px;
-  margin-right: 8px;
-  --background: var(--tigm-button-background-color);
-  --background-activated: var(--tigm-button-activated-color);
-  --color: white;
-  text-transform: none;
-  font-size: 14px;
-  min-width: 160px;
-  width: 160px;
-  min-height: 36px;
-  height: 36px; */
   float: right;
   margin-top: 15px;
   margin-left: 8px;
@@ -330,5 +274,8 @@ export default defineComponent({
   text-transform: none;
   min-height: 36px;
   height: 36px;
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
 }
 </style>

@@ -14,7 +14,7 @@
               <ion-button class="pageButton" fill="clear" @click="didPressPrevPage()" v-show="page > 0">{{ prevPageTitle
               }}</ion-button>
               <ion-button class="pageButton nextPageButton" fill="clear" @click="didPressNextPage()"
-                v-show="hasMorePages > 0">{{ nextPageTitle }}</ion-button>
+                v-show="hasMorePages">{{ nextPageTitle }}</ion-button>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default defineComponent({
       selectedCandidates: {} as Candidates,
       page: 0,
       hasMorePages: true,
-      itemsPerPage: 14,
+      itemsPerPage: 15,
       prevPageTitle: PartiesPageStrings.prevPage,
       nextPageTitle: PartiesPageStrings.nextPage,
       nextStepButtonTitle: "",

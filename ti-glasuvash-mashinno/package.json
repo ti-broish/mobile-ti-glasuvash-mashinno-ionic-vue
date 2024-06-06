@@ -17,12 +17,13 @@
     "@capacitor/ios": "^5.0.0",
     "@capacitor/keyboard": "^5.0.0",
     "@capacitor/status-bar": "^5.0.0",
-    "@ionic/vue": "^6.0.0",
-    "@ionic/vue-router": "^6.0.0",
+    "@ionic/core": "^8.2.1",
+    "@ionic/vue": "^8.2.1",
+    "@ionic/vue-router": "^8.2.1",
     "core-js": "^3.6.5",
     "ionicons": "^6.0.3",
-    "vue": "^3.2.21",
-    "vue-router": "^4.0.12"
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@capacitor/cli": "^5.0.0",

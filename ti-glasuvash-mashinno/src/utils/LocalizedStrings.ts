@@ -1,5 +1,5 @@
 export const enum HomePageStrings {
-    title = "Добре дошли в Избори 29.10.2023",
+    title = "Избори за Народно събрание и Европейски парламент 09 юни 2024 г.",
     subtitle = "",
     hint = "Поставете картата в слота за четене",
     cardButtonTitle = "Поставете карта", 
@@ -9,17 +9,15 @@ export const enum HomePageStrings {
 export const enum PageHeaderStrings {
     electionRegion = "Район",
     section = "Секция",
-    title = "Избори за общински съветници",
+    title = "Избори 09.06.24 г",
 }
 
 export const enum VoteOptionsPageStrings {
     title = "Посочете в кои избори ще гласувате", 
     subtitle = "Натиснете и потвърдете", 
     selectAll = "Избери всички", 
-    option1 = "ИЗБОРИ ЗА ОБЩИНСКИ СЪВЕТНИЦИ", 
-    option2 = "ИЗБОРИ ЗА КМЕТ НА ОБЩИНА", 
-    option3 = "ИЗБОРИ ЗА КМЕТ НА РАЙОН",
-    option4 = "ИЗБОРИ ЗА КМЕТ НА КМЕТСТВО",  
+    option1 = "Избори за народни представители", 
+    option2 = "Избори за Европейски парламент",   
     confirmButton = "Потвърждавам"
 }
 
@@ -44,7 +42,7 @@ export const enum PartiesPageStrings {
 }
 
 export const enum PreviewPageStrings {
-    title = "Избори 29.10.2023",
+    title = "Избори 09.06.24 г",
     sectionTitle = "Преглед на избора",
     sectionText0 = "Прегледайте избора си",
     sectionText1 = "Може да го промените, като натиснете “Промени избора”.",
