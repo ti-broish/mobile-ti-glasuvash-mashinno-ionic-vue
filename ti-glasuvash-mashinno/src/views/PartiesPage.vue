@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content>
       <div class="container">
-        <page-header-component></page-header-component>
+        <page-header-component :pTitle="pageTitle"></page-header-component>
         <!-- parties -->
         <div class="partiesContainer">
           <div class="partiesList">
@@ -14,7 +14,7 @@
               <ion-button class="pageButton" fill="clear" @click="didPressPrevPage()" v-show="page > 0">{{ prevPageTitle
               }}</ion-button>
               <ion-button class="pageButton nextPageButton" fill="clear" @click="didPressNextPage()"
-                v-show="hasMorePages > 0">{{ nextPageTitle }}</ion-button>
+                v-show="hasMorePages">{{ nextPageTitle }}</ion-button>
             </div>
           </div>
           <!-- preferences -->
@@ -40,7 +40,7 @@ import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { CandidatesPageStrings, PartiesPageStrings, VoteOptionsPageStrings } from "@/utils/LocalizedStrings";
-import { Party, Preference } from "@/store/parties/types";
+import { Party, Preference, PartyElectionType } from "@/store/parties/types";
 import { PartiesBuilder } from "@/store/parties/parties-builder";
 import { LocalStorageKeys } from "@/store/local-storage-keys";
 
@@ -76,8 +76,9 @@ export default defineComponent({
       selectedPreference: {} as Preference | null,
       page: 0,
       hasMorePages: true,
-      itemsPerPage: 14,
+      itemsPerPage: 15,
       notaId: -1,
+      pageTitle: this.isEuropeanUnion() ? VoteOptionsPageStrings.option2 : VoteOptionsPageStrings.option1,
     };
   },
   mounted() {
@@ -98,7 +99,7 @@ export default defineComponent({
         this.voteOptions = JSON.parse(storedVoteOptions);
 
         const voteOption = this.voteOptions.filter(option => option.data?.party != null)[0];
-        if (voteOption) {
+        if (!this.isEuropeanUnion() && voteOption) {
           const party = this.parties.filter(party => party.name == voteOption.data?.party)[0];
           if (party) {
             this.selectedParty = party;
@@ -119,11 +120,12 @@ export default defineComponent({
     },
     loadParties() {
       const builder = new PartiesBuilder();
-      this.parties = builder.makeParties();
+      const electionType = this.isEuropeanUnion() ? PartyElectionType.EuropeanUnion : PartyElectionType.NationalAssembly;
+      this.parties = builder.makeParties(electionType);
       this.notaId = this.parties[this.parties.length - 1].id;
     },
     loadPreferences() {
-      for (let i = 1; i <= 32; i++) {
+      for (let i = 1; i <= 38; i++) {
         const preference = { id: 100 + i };
         this.preferences.push(preference);
       }
@@ -175,28 +177,49 @@ export default defineComponent({
     },
     handleNextStepButton() {
       if (this.hasSelectedParty()) {
-        const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
-        if (voteOption) {
-          voteOption.data = {
-            id: this.selectedParty.id,
-            party: this.selectedParty.name,
-            first: "" + this.selectedPreferenceValue,
-            second: ""
-          };
+        if (this.isEuropeanUnion()) {
+          const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option2)[0];
+          if (voteOption) {
+            voteOption.data = {
+              id: this.selectedParty.id,
+              party: this.selectedParty.name,
+              first: "" + this.selectedPreferenceValue,
+              second: ""
+            };
 
-          voteOption.filled = true;
+            voteOption.filled = true;
 
-          localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
-        }
+            localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
+          }
 
-        if (this.voteOptions.length == 1 && this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0]) {
           this.$router.replace("/preview");
         } else {
-          this.$router.replace("/candidates");
+          const voteOption = this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0];
+          if (voteOption) {
+            voteOption.data = {
+              id: this.selectedParty.id,
+              party: this.selectedParty.name,
+              first: "" + this.selectedPreferenceValue,
+              second: ""
+            };
+
+            voteOption.filled = true;
+
+            localStorage.setItem(LocalStorageKeys.selectedVoteOptions, JSON.stringify(this.voteOptions));
+          }
+
+          if (this.voteOptions.length == 1 && this.voteOptions.filter(option => option.name == VoteOptionsPageStrings.option1)[0]) {
+            this.$router.replace("/preview");
+          } else {
+            this.$router.replace("/parties-eu");
+          }
         }
       } else {
         this.$router.push("/empty-vote");
       }
+    },
+    isEuropeanUnion() {
+      return this.$route.path == "/parties-eu";
     },
   },
 });
